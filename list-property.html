@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>List Property | Afro Student Living</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="Afro Student Living Logo">
+    </a>
+
+    <button class="menu-btn" id="menuBtn">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="listings.html">Find Accommodation</a>
+      <a href="list-property.html">List Property</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="login.html">Login</a>
+      <a href="login.html" class="btn btn-primary">Get Started</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow">For landlords</span>
+      <h1>List your student property</h1>
+      <p>Add your room, hostel, studio, or apartment and connect with students across Nigeria.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container form-shell">
+      <form class="premium-form">
+        <div class="form-group">
+          <label>Property Name</label>
+          <input type="text" placeholder="Example: Modern Student Studio">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>City</label>
+            <select>
+              <option>Abuja</option>
+              <option>Lagos</option>
+              <option>Port Harcourt</option>
+              <option>Enugu</option>
+              <option>Kano</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Property Type</label>
+            <select>
+              <option>Studio</option>
+              <option>Shared Room</option>
+              <option>Hostel</option>
+              <option>Apartment</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label>Price</label>
+          <input type="text" placeholder="₦450,000 / year">
+        </div>
+
+        <div class="form-group">
+          <label>Description</label>
+          <textarea placeholder="Describe the property, location, facilities, and nearby university."></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Landlord WhatsApp Number</label>
+          <input type="text" placeholder="234XXXXXXXXXX">
+        </div>
+
+        <button type="button" class="btn btn-accent">Submit Property</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
