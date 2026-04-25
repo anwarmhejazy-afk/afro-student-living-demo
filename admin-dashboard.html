@@ -3,46 +3,50 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Dashboard | Afro Student Living</title>
+
+  <title>Admin Dashboard | Afro Student Living</title>
+
   <link rel="stylesheet" href="style.css" />
 </head>
+
 <body>
 
 <div class="dashboard">
   <aside class="sidebar">
     <img src="images/logo.png" alt="Afro Student Living Logo">
-    <a href="#" class="active">Overview</a>
-    <a href="#">Properties</a>
-    <a href="#">Bookings</a>
-    <a href="#">Inquiries</a>
-    <a href="#">Settings</a>
+
+    <a href="admin-dashboard.html" class="active">Overview</a>
+    <a href="list-property.html">Property Submissions</a>
+    <a href="listings.html">Listings</a>
+    <a href="booking-request.html">Bookings</a>
+    <a href="student-dashboard.html">Students</a>
     <a href="index.html">Back to Website</a>
   </aside>
 
   <main class="dashboard-main">
     <div class="dashboard-head">
       <div>
-        <h1>Landlord Dashboard</h1>
-        <p>Manage your student accommodation listings.</p>
+        <h1>Admin Dashboard</h1>
+        <p>Manage accommodation listings, student requests, and submissions.</p>
       </div>
 
-      <a href="list-property.html" class="btn btn-accent">Add Property</a>
+      <a href="list-property.html" class="btn btn-accent">Add / Review Property</a>
     </div>
 
     <div class="stats-grid">
       <div class="stat-card">
-        <span>Total Properties</span>
+        <span>Total Listings</span>
         <strong>6</strong>
       </div>
 
       <div class="stat-card">
-        <span>Active Listings</span>
-        <strong>4</strong>
+        <span>Booking Requests</span>
+        <strong>12</strong>
       </div>
 
       <div class="stat-card">
-        <span>Inquiries</span>
-        <strong>18</strong>
+        <span>Pending Reviews</span>
+        <strong>4</strong>
       </div>
 
       <div class="stat-card">
@@ -52,11 +56,12 @@
     </div>
 
     <div class="admin-panel">
-      <h2>Recent Properties</h2>
+      <h2>Recent Booking Requests</h2>
 
       <table>
         <thead>
           <tr>
+            <th>Student</th>
             <th>Property</th>
             <th>City</th>
             <th>Price</th>
@@ -66,24 +71,27 @@
 
         <tbody>
           <tr>
+            <td>Student User</td>
             <td>Private Student Studio</td>
             <td>Abuja</td>
             <td>₦450,000 / year</td>
-            <td>Active</td>
+            <td><span class="table-badge pending">Pending</span></td>
           </tr>
 
           <tr>
-            <td>Shared Apartment</td>
+            <td>Student User</td>
+            <td>Premium Shared Apartment</td>
             <td>Lagos</td>
             <td>₦280,000 / year</td>
-            <td>Active</td>
+            <td><span class="table-badge approved">Approved</span></td>
           </tr>
 
           <tr>
-            <td>Student Hostel</td>
+            <td>Student User</td>
+            <td>Affordable Student Hostel</td>
             <td>Enugu</td>
             <td>₦180,000 / year</td>
-            <td>Pending</td>
+            <td><span class="table-badge pending">Pending</span></td>
           </tr>
         </tbody>
       </table>

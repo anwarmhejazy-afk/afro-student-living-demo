@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Student Dashboard | Afro Student Living</title>
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+
+<body>
+
+<div class="dashboard">
+  <aside class="sidebar">
+    <img src="images/logo.png" alt="Afro Student Living Logo">
+
+    <a href="student-dashboard.html" class="active">Overview</a>
+    <a href="listings.html">Browse Rooms</a>
+    <a href="booking-request.html">My Booking</a>
+    <a href="property.html">Saved Properties</a>
+    <a href="index.html">Back to Website</a>
+  </aside>
+
+  <main class="dashboard-main">
+    <div class="dashboard-head">
+      <div>
+        <h1>Student Dashboard</h1>
+        <p>Track your accommodation search and booking requests.</p>
+      </div>
+
+      <a href="listings.html" class="btn btn-accent">Browse Accommodation</a>
+    </div>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span>Saved Properties</span>
+        <strong>3</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Booking Requests</span>
+        <strong>1</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Status</span>
+        <strong>Pending</strong>
+      </div>
+
+      <div class="stat-card">
+        <span>Budget</span>
+        <strong>₦450k</strong>
+      </div>
+    </div>
+
+    <div class="admin-panel">
+      <h2>My Booking Request</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Property</th>
+            <th>City</th>
+            <th>Price</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr>
+            <td>Private Student Studio</td>
+            <td>Abuja</td>
+            <td>₦450,000 / year</td>
+            <td><span class="table-badge pending">Pending Review</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </main>
+</div>
+
+</body>
+</html>

@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <title>Property Details | Afro Student Living</title>
 
-  <link rel="stylesheet" href="style.css"/>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -15,17 +15,18 @@
 <header class="site-header">
   <div class="container nav">
     <a href="index.html" class="logo">
-      <img src="images/logo.png">
+      <img src="images/logo.png" alt="Afro Student Living Logo">
     </a>
 
-    <button class="menu-btn" id="menuBtn">☰</button>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
 
     <nav class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
       <a href="listings.html">Find Accommodation</a>
       <a href="list-property.html">Submit Property</a>
       <a href="index.html#how-it-works">How It Works</a>
-      <a href="login.html">Admin Login</a>
+      <a href="student-login.html">Student Login</a>
+      <a href="admin-login.html">Admin</a>
       <a href="listings.html" class="btn btn-primary">Find a Room</a>
     </nav>
   </div>
@@ -33,44 +34,67 @@
 
 <main>
 
-<section class="section">
-  <div class="container property-page">
+<section class="property-detail">
+  <div class="container">
+    <a href="listings.html" class="back-link">← Back to listings</a>
 
-    <!-- IMAGE -->
-    <div class="property-image-large img-two"></div>
+    <div class="detail-grid">
 
-    <!-- DETAILS -->
-    <div class="property-details">
+      <div>
+        <div class="detail-image img-two"></div>
 
-      <span class="badge verified">Verified Property</span>
+        <div class="detail-content">
+          <span class="badge verified">Verified Property</span>
+          <h1>Private Student Studio</h1>
+          <p class="detail-location">Abuja • Near campus • Bills included</p>
 
-      <h1>Private Student Studio</h1>
+          <h2>₦450,000 / year</h2>
 
-      <p class="location">Abuja • Near university campus</p>
+          <p>
+            A clean and secure private student studio designed for comfort, privacy,
+            and easy access to nearby universities. Suitable for students who want
+            a quiet space with essential amenities.
+          </p>
 
-      <p class="price">₦450,000 / year</p>
+          <h3>Features</h3>
 
-      <p class="description">
-        Modern student studio located near the university. Includes private bathroom,
-        secure building, constant water supply, and quiet environment for studying.
-      </p>
+          <ul class="features">
+            <li>✔ Fully furnished room</li>
+            <li>✔ 24/7 security access</li>
+            <li>✔ WiFi available</li>
+            <li>✔ Close to university area</li>
+            <li>✔ Clean bathroom and kitchen access</li>
+            <li>✔ Water and electricity access</li>
+          </ul>
+        </div>
+      </div>
 
-      <ul class="features">
-        <li>✔ Fully furnished</li>
-        <li>✔ 24/7 security</li>
-        <li>✔ Close to campus</li>
-        <li>✔ Electricity included</li>
-      </ul>
+      <aside class="inquiry-card">
+        <h3>Reserve this student accommodation</h3>
+        <p>Submit a booking request and the admin will confirm availability.</p>
 
-      <!-- WHATSAPP BUTTON -->
-      <a href="https://wa.me/2340000000000?text=Hello%2C%20I%20am%20interested%20in%20the%20Private%20Student%20Studio%20in%20Abuja%20listed%20on%20Afro%20Student%20Living."
-         target="_blank"
-         class="btn btn-accent full-btn">
-         Contact via WhatsApp
-      </a>
+        <div class="price-box">
+          <span>Price</span>
+          <strong>₦450,000 / year</strong>
+        </div>
+
+        <a href="booking-request.html" class="btn btn-accent full-btn">
+          Request Booking
+        </a>
+
+        <a
+          href="https://wa.me/2340000000000?text=Hello%2C%20I%27m%20interested%20in%20the%20Private%20Student%20Studio%20in%20Abuja%20listed%20on%20Afro%20Student%20Living."
+          class="btn btn-outline full-btn"
+          target="_blank">
+          Contact on WhatsApp
+        </a>
+
+        <p class="small-note">
+          Booking confirmation is managed by Afro Student Living admin.
+        </p>
+      </aside>
 
     </div>
-
   </div>
 </section>
 
@@ -78,7 +102,8 @@
 
 <footer>
   <div class="container footer-inner">
-    <p>© 2026 Afro Student Living</p>
+    <p>© 2026 Afro Student Living. All rights reserved.</p>
+    <p>Student accommodation in Nigeria made simple.</p>
   </div>
 </footer>
 

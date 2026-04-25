@@ -7,7 +7,7 @@
   <title>Afro Student Living | Student Accommodation in Nigeria</title>
 
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -23,218 +23,212 @@
     <nav class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
       <a href="listings.html">Find Accommodation</a>
-      <a href="list-property.html">List Property</a>
+      <a href="list-property.html">Submit Property</a>
       <a href="#how-it-works">How It Works</a>
-      <a href="login.html">Login</a>
-      <a href="login.html" class="btn btn-primary">Get Started</a>
+      <a href="student-login.html">Student Login</a>
+      <a href="admin-login.html">Admin</a>
+      <a href="listings.html" class="btn btn-primary">Find a Room</a>
     </nav>
   </div>
 </header>
 
 <main>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-grid">
+<section class="hero">
+  <div class="container hero-grid">
 
-      <div class="hero-content">
-        <span class="eyebrow">Trusted student housing in Nigeria</span>
+    <div class="hero-content">
+      <span class="eyebrow">Trusted student housing in Nigeria</span>
 
-        <h1>Find safe student accommodation near your university.</h1>
+      <h1>Book safe student accommodation near your university.</h1>
 
-        <p>
-          Afro Student Living helps students find verified rooms, hostels, shared apartments,
-          and studios across major Nigerian cities.
-        </p>
+      <p>
+        Afro Student Living helps students compare verified rooms, hostels,
+        studios, and apartments across major Nigerian student cities.
+      </p>
 
-        <div class="search-box">
-          <input type="text" placeholder="City or university" />
+      <div class="search-box">
+        <input type="text" placeholder="City or university" />
 
-          <select>
-            <option>Property Type</option>
-            <option>Shared Room</option>
-            <option>Studio</option>
-            <option>Hostel</option>
-            <option>Apartment</option>
-          </select>
+        <select>
+          <option>Property Type</option>
+          <option>Shared Room</option>
+          <option>Studio</option>
+          <option>Hostel</option>
+          <option>Apartment</option>
+        </select>
 
-          <select>
-            <option>Budget</option>
-            <option>Below ₦150,000</option>
-            <option>₦150,000 - ₦400,000</option>
-            <option>₦400,000 - ₦800,000</option>
-            <option>₦800,000+</option>
-          </select>
+        <select>
+          <option>Budget</option>
+          <option>Below ₦150,000</option>
+          <option>₦150,000 - ₦400,000</option>
+          <option>₦400,000 - ₦800,000</option>
+          <option>₦800,000+</option>
+        </select>
 
-          <a href="listings.html" class="btn btn-accent">Search</a>
-        </div>
-
-        <div class="hero-stats">
-          <div>
-            <strong>500+</strong>
-            <span>Student rooms</span>
-          </div>
-
-          <div>
-            <strong>80+</strong>
-            <span>Verified landlords</span>
-          </div>
-
-          <div>
-            <strong>5</strong>
-            <span>Nigerian cities</span>
-          </div>
-        </div>
+        <a href="listings.html" class="btn btn-accent">Search</a>
       </div>
 
-      <div class="hero-card">
-        <div class="image-box">
-          <div class="floating-badge">Verified Property</div>
+      <div class="hero-stats">
+        <div>
+          <strong>500+</strong>
+          <span>Student rooms</span>
         </div>
 
-        <div class="preview-card">
-          <span class="badge available">Available Now</span>
-          <h3>Modern Student Studio</h3>
-          <p>Near campus • Secure building • Bills included</p>
-          <strong>From ₦350,000 / year</strong>
+        <div>
+          <strong>80+</strong>
+          <span>Verified listings</span>
+        </div>
+
+        <div>
+          <strong>5</strong>
+          <span>Nigerian cities</span>
         </div>
       </div>
-
-    </div>
-  </section>
-
-  <!-- CITIES -->
-  <section class="section cities-section">
-    <div class="container section-head">
-      <span class="eyebrow">Popular locations</span>
-      <h2>Explore student homes by city</h2>
-      <p>Find accommodation in major Nigerian student cities.</p>
     </div>
 
-    <div class="container city-grid">
-
-      <article class="city-card city-abuja">
-        <div class="city-overlay">
-          <h3>Abuja</h3>
-          <p>Capital city • Modern housing</p>
-        </div>
-      </article>
-
-      <article class="city-card city-lagos">
-        <div class="city-overlay">
-          <h3>Lagos</h3>
-          <p>Top student city • High demand</p>
-        </div>
-      </article>
-
-      <article class="city-card city-port">
-        <div class="city-overlay">
-          <h3>Port Harcourt</h3>
-          <p>Affordable student housing</p>
-        </div>
-      </article>
-
-      <article class="city-card city-enugu">
-        <div class="city-overlay">
-          <h3>Enugu</h3>
-          <p>Calm student environment</p>
-        </div>
-      </article>
-
-      <article class="city-card city-kano">
-        <div class="city-overlay">
-          <h3>Kano</h3>
-          <p>Growing student hub</p>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <!-- FEATURED PROPERTIES -->
-  <section class="section soft-section">
-    <div class="container section-head">
-      <span class="eyebrow">Featured properties</span>
-      <h2>Recommended student accommodation</h2>
-    </div>
-
-    <div class="container property-grid">
-
-      <a href="property.html" class="property-card">
-        <div class="property-img img-one"></div>
-        <div class="property-content">
-          <span class="badge verified">Verified</span>
-          <h3>Premium Shared Apartment</h3>
-          <p>Lagos • 10 minutes from campus</p>
-          <strong>₦280,000 / year</strong>
-        </div>
-      </a>
-
-      <a href="property.html" class="property-card">
-        <div class="property-img img-two"></div>
-        <div class="property-content">
-          <span class="badge featured">Featured</span>
-          <h3>Private Student Studio</h3>
-          <p>Abuja • Bills included</p>
-          <strong>₦450,000 / year</strong>
-        </div>
-      </a>
-
-      <a href="property.html" class="property-card">
-        <div class="property-img img-three"></div>
-        <div class="property-content">
-          <span class="badge verified">Verified</span>
-          <h3>Affordable Student Hostel</h3>
-          <p>Enugu • Secure access</p>
-          <strong>₦180,000 / year</strong>
-        </div>
-      </a>
-
-    </div>
-  </section>
-
-  <!-- HOW IT WORKS -->
-  <section class="section how" id="how-it-works">
-    <div class="container section-head">
-      <span class="eyebrow">How it works</span>
-      <h2>Simple process for students and landlords</h2>
-    </div>
-
-    <div class="container steps-grid">
-
-      <div class="step-card">
-        <span>01</span>
-        <h3>Search</h3>
-        <p>Students search by city, university, budget, and property type.</p>
+    <div class="hero-card">
+      <div class="image-box">
+        <div class="floating-badge">Verified Property</div>
       </div>
 
-      <div class="step-card">
-        <span>02</span>
-        <h3>Connect</h3>
-        <p>Students send inquiries or booking requests to verified landlords.</p>
-      </div>
-
-      <div class="step-card">
-        <span>03</span>
-        <h3>Move In</h3>
-        <p>Secure your accommodation and move in with confidence.</p>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="cta">
-    <div class="container cta-box">
-      <h2>Ready to find your student home?</h2>
-      <p>Search verified accommodation or list your property as a landlord.</p>
-
-      <div class="cta-actions">
-        <a href="listings.html" class="btn btn-accent">Find Accommodation</a>
-        <a href="list-property.html" class="btn btn-outline">List Your Property</a>
+      <div class="preview-card">
+        <span class="badge available">Available Now</span>
+        <h3>Modern Student Studio</h3>
+        <p>Near campus • Secure building • Bills included</p>
+        <strong>From ₦350,000 / year</strong>
       </div>
     </div>
-  </section>
+
+  </div>
+</section>
+
+<section class="section cities-section">
+  <div class="container section-head">
+    <span class="eyebrow">Popular locations</span>
+    <h2>Explore student homes by city</h2>
+    <p>Find accommodation in major Nigerian student cities.</p>
+  </div>
+
+  <div class="container city-grid">
+    <a href="listings.html" class="city-card city-abuja">
+      <div class="city-overlay">
+        <h3>Abuja</h3>
+        <p>Capital city • Modern housing</p>
+      </div>
+    </a>
+
+    <a href="listings.html" class="city-card city-lagos">
+      <div class="city-overlay">
+        <h3>Lagos</h3>
+        <p>Top student city • High demand</p>
+      </div>
+    </a>
+
+    <a href="listings.html" class="city-card city-port">
+      <div class="city-overlay">
+        <h3>Port Harcourt</h3>
+        <p>Affordable student housing</p>
+      </div>
+    </a>
+
+    <a href="listings.html" class="city-card city-enugu">
+      <div class="city-overlay">
+        <h3>Enugu</h3>
+        <p>Calm student environment</p>
+      </div>
+    </a>
+
+    <a href="listings.html" class="city-card city-kano">
+      <div class="city-overlay">
+        <h3>Kano</h3>
+        <p>Growing student hub</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="section soft-section">
+  <div class="container section-head">
+    <span class="eyebrow">Featured properties</span>
+    <h2>Recommended student accommodation</h2>
+  </div>
+
+  <div class="container property-grid">
+
+    <a href="property.html" class="property-card">
+      <div class="property-img img-one"></div>
+      <div class="property-content">
+        <span class="badge verified">Verified</span>
+        <h3>Premium Shared Apartment</h3>
+        <p>Lagos • 10 minutes from campus</p>
+        <strong>₦280,000 / year</strong>
+      </div>
+    </a>
+
+    <a href="property.html" class="property-card">
+      <div class="property-img img-two"></div>
+      <div class="property-content">
+        <span class="badge featured">Featured</span>
+        <h3>Private Student Studio</h3>
+        <p>Abuja • Bills included</p>
+        <strong>₦450,000 / year</strong>
+      </div>
+    </a>
+
+    <a href="property.html" class="property-card">
+      <div class="property-img img-three"></div>
+      <div class="property-content">
+        <span class="badge verified">Verified</span>
+        <h3>Affordable Student Hostel</h3>
+        <p>Enugu • Secure access</p>
+        <strong>₦180,000 / year</strong>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<section class="section how" id="how-it-works">
+  <div class="container section-head">
+    <span class="eyebrow">How it works</span>
+    <h2>Simple booking flow for students</h2>
+  </div>
+
+  <div class="container steps-grid">
+
+    <div class="step-card">
+      <span>01</span>
+      <h3>Search</h3>
+      <p>Students browse accommodation by city, university, budget, and property type.</p>
+    </div>
+
+    <div class="step-card">
+      <span>02</span>
+      <h3>Request Booking</h3>
+      <p>Students select a room and submit a booking request through their account.</p>
+    </div>
+
+    <div class="step-card">
+      <span>03</span>
+      <h3>Admin Confirms</h3>
+      <p>The admin reviews requests, confirms availability, and guides the student.</p>
+    </div>
+
+  </div>
+</section>
+
+<section class="cta">
+  <div class="container cta-box">
+    <h2>Ready to find your student home?</h2>
+    <p>Browse verified accommodation or submit a property for review.</p>
+
+    <div class="cta-actions">
+      <a href="listings.html" class="btn btn-accent">Find Accommodation</a>
+      <a href="list-property.html" class="btn btn-outline">Submit Property</a>
+    </div>
+  </div>
+</section>
 
 </main>
 

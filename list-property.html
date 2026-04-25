@@ -7,7 +7,7 @@
   <title>Submit Property | Afro Student Living</title>
 
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -25,7 +25,8 @@
       <a href="listings.html">Find Accommodation</a>
       <a href="list-property.html">Submit Property</a>
       <a href="index.html#how-it-works">How It Works</a>
-      <a href="login.html">Admin Login</a>
+      <a href="student-login.html">Student Login</a>
+      <a href="admin-login.html">Admin</a>
       <a href="listings.html" class="btn btn-primary">Find a Room</a>
     </nav>
   </div>
@@ -33,111 +34,111 @@
 
 <main>
 
-  <section class="page-hero">
-    <div class="container">
-      <span class="eyebrow">Property submission</span>
-      <h1>Submit a student property for review.</h1>
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Property submission</span>
+    <h1>Submit a student property for review.</h1>
+    <p>
+      Property owners can submit accommodation details. Afro Student Living will review,
+      verify, and publish approved listings through the admin team.
+    </p>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container submit-grid">
+
+    <div class="submit-info">
+      <span class="eyebrow">Admin-controlled platform</span>
+      <h2>Safe listings. Verified before publishing.</h2>
+
       <p>
-        Property owners can submit accommodation details. Afro Student Living will review,
-        verify, and publish approved listings through the admin team.
+        Afro Student Living does not give public landlord dashboard access at this stage.
+        Property details are submitted for review, then the admin approves and publishes
+        trusted accommodation listings.
       </p>
+
+      <div class="trust-list">
+        <div>
+          <strong>01</strong>
+          <span>Property owner submits details</span>
+        </div>
+
+        <div>
+          <strong>02</strong>
+          <span>Admin reviews and verifies</span>
+        </div>
+
+        <div>
+          <strong>03</strong>
+          <span>Approved property goes live</span>
+        </div>
+      </div>
     </div>
-  </section>
 
-  <section class="section">
-    <div class="container submit-grid">
+    <form class="premium-form">
+      <div class="form-group">
+        <label>Property Name</label>
+        <input type="text" placeholder="Example: Modern Student Studio">
+      </div>
 
-      <div class="submit-info">
-        <span class="eyebrow">Admin-controlled platform</span>
-        <h2>Safe listings. Verified before publishing.</h2>
+      <div class="form-row">
+        <div class="form-group">
+          <label>City</label>
+          <select>
+            <option>Abuja</option>
+            <option>Lagos</option>
+            <option>Port Harcourt</option>
+            <option>Enugu</option>
+            <option>Kano</option>
+          </select>
+        </div>
 
-        <p>
-          Afro Student Living does not give public landlord dashboard access at this stage.
-          Property details are submitted for review, then the admin approves and publishes
-          trusted accommodation listings.
-        </p>
-
-        <div class="trust-list">
-          <div>
-            <strong>01</strong>
-            <span>Property owner submits details</span>
-          </div>
-
-          <div>
-            <strong>02</strong>
-            <span>Admin reviews and verifies</span>
-          </div>
-
-          <div>
-            <strong>03</strong>
-            <span>Approved property goes live</span>
-          </div>
+        <div class="form-group">
+          <label>Property Type</label>
+          <select>
+            <option>Studio</option>
+            <option>Shared Room</option>
+            <option>Hostel</option>
+            <option>Apartment</option>
+          </select>
         </div>
       </div>
 
-      <form class="premium-form">
-        <div class="form-group">
-          <label>Property Name</label>
-          <input type="text" placeholder="Example: Modern Student Studio">
-        </div>
+      <div class="form-group">
+        <label>Price</label>
+        <input type="text" placeholder="₦450,000 / year">
+      </div>
 
-        <div class="form-row">
-          <div class="form-group">
-            <label>City</label>
-            <select>
-              <option>Abuja</option>
-              <option>Lagos</option>
-              <option>Port Harcourt</option>
-              <option>Enugu</option>
-              <option>Kano</option>
-            </select>
-          </div>
+      <div class="form-group">
+        <label>Owner / Contact Name</label>
+        <input type="text" placeholder="Full name">
+      </div>
 
-          <div class="form-group">
-            <label>Property Type</label>
-            <select>
-              <option>Studio</option>
-              <option>Shared Room</option>
-              <option>Hostel</option>
-              <option>Apartment</option>
-            </select>
-          </div>
-        </div>
+      <div class="form-group">
+        <label>WhatsApp Number</label>
+        <input type="text" placeholder="234XXXXXXXXXX">
+      </div>
 
-        <div class="form-group">
-          <label>Price</label>
-          <input type="text" placeholder="₦450,000 / year">
-        </div>
+      <div class="form-group">
+        <label>Nearest University / Area</label>
+        <input type="text" placeholder="Example: Near UNILAG, Yaba">
+      </div>
 
-        <div class="form-group">
-          <label>Owner / Contact Name</label>
-          <input type="text" placeholder="Full name">
-        </div>
+      <div class="form-group">
+        <label>Property Description</label>
+        <textarea placeholder="Describe the location, facilities, security, distance to university, and room condition."></textarea>
+      </div>
 
-        <div class="form-group">
-          <label>WhatsApp Number</label>
-          <input type="text" placeholder="234XXXXXXXXXX">
-        </div>
+      <button type="button" class="btn btn-accent full-btn">Submit for Admin Review</button>
 
-        <div class="form-group">
-          <label>Nearest University / Area</label>
-          <input type="text" placeholder="Example: Near UNILAG, Yaba">
-        </div>
+      <p class="small-note">
+        This preview form will later connect to the admin dashboard.
+      </p>
+    </form>
 
-        <div class="form-group">
-          <label>Property Description</label>
-          <textarea placeholder="Describe the location, facilities, security, distance to university, and room condition."></textarea>
-        </div>
-
-        <button type="button" class="btn btn-accent full-btn">Submit for Admin Review</button>
-
-        <p class="small-note">
-          This preview form will later connect to the admin dashboard.
-        </p>
-      </form>
-
-    </div>
-  </section>
+  </div>
+</section>
 
 </main>
 
