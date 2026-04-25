@@ -31,6 +31,7 @@
 </header>
 
 <main>
+
 <section class="page-hero">
   <div class="container">
     <span class="eyebrow">Find accommodation</span>
@@ -41,52 +42,89 @@
 
 <section class="section listings-section">
   <div class="container">
+
     <div class="filters">
-      <input type="text" placeholder="Search city or university">
+      <input id="searchInput" type="text" placeholder="Search state, area, university">
 
-      <select>
-        <option>All Cities</option>
-        <option>Abuja</option>
-        <option>Lagos</option>
-        <option>Port Harcourt</option>
+      <select id="stateFilter">
+        <option value="">All States</option>
+        <option>Abia</option>
+        <option>Adamawa</option>
+        <option>Akwa Ibom</option>
+        <option>Anambra</option>
+        <option>Bauchi</option>
+        <option>Bayelsa</option>
+        <option>Benue</option>
+        <option>Borno</option>
+        <option>Cross River</option>
+        <option>Delta</option>
+        <option>Ebonyi</option>
+        <option>Edo</option>
+        <option>Ekiti</option>
         <option>Enugu</option>
+        <option>Gombe</option>
+        <option>Imo</option>
+        <option>Jigawa</option>
+        <option>Kaduna</option>
         <option>Kano</option>
+        <option>Katsina</option>
+        <option>Kebbi</option>
+        <option>Kogi</option>
+        <option>Kwara</option>
+        <option>Lagos</option>
+        <option>Nasarawa</option>
+        <option>Niger</option>
+        <option>Ogun</option>
+        <option>Ondo</option>
+        <option>Osun</option>
+        <option>Oyo</option>
+        <option>Plateau</option>
+        <option>Rivers</option>
+        <option>Sokoto</option>
+        <option>Taraba</option>
+        <option>Yobe</option>
+        <option>Zamfara</option>
       </select>
 
-      <select>
-        <option>Property Type</option>
-        <option>Studio</option>
-        <option>Shared Room</option>
-        <option>Hostel</option>
-        <option>Apartment</option>
+      <select id="typeFilter">
+        <option value="">Property Type</option>
+        <option value="Studio">Studio</option>
+        <option value="Shared Room">Shared Room</option>
+        <option value="Hostel">Hostel</option>
+        <option value="Apartment">Apartment</option>
       </select>
 
-      <select>
-        <option>Budget</option>
-        <option>Below ₦150,000</option>
-        <option>₦150,000 - ₦400,000</option>
-        <option>₦400,000 - ₦800,000</option>
-        <option>₦800,000+</option>
+      <select id="budgetFilter">
+        <option value="">Budget</option>
+        <option value="150000">Below ₦150,000</option>
+        <option value="400000">₦150,000 - ₦400,000</option>
+        <option value="800000">₦400,000 - ₦800,000</option>
+        <option value="800001">₦800,000+</option>
       </select>
 
-      <button class="btn btn-accent">Search</button>
+      <button id="resetFilters" class="btn btn-accent" type="button">Reset</button>
     </div>
 
     <div class="listings-top">
       <div>
         <h2>Available accommodation</h2>
-        <p>Verified student housing options across Nigeria.</p>
+        <p id="resultsText">Showing verified student housing options across Nigeria.</p>
       </div>
-      <span class="count-pill">6 properties</span>
+      <span class="count-pill"><span id="propertyCount">6</span> properties</span>
     </div>
 
-    <div class="property-grid">
-      <a href="property.html" class="property-card">
+    <div class="property-grid" id="propertyGrid">
+
+      <a href="property.html" class="property-card"
+         data-state="Lagos"
+         data-type="Apartment"
+         data-price="280000"
+         data-keywords="lagos yaba unilag premium shared apartment furnished wifi security">
         <div class="property-img img-one"></div>
         <div class="property-content">
           <span class="badge verified">Verified</span>
           <h3>Premium Shared Apartment</h3>
-          <p>Lagos • 10 min from campus</p>
+          <p>Lagos State • Yaba • Near UNILAG</p>
           <ul class="mini-features">
             <li>WiFi</li>
             <li>Security</li>
@@ -96,12 +134,16 @@
         </div>
       </a>
 
-      <a href="property.html" class="property-card">
+      <a href="property.html" class="property-card"
+         data-state="Abuja"
+         data-type="Studio"
+         data-price="450000"
+         data-keywords="abuja private student studio bills included secure near campus">
         <div class="property-img img-two"></div>
         <div class="property-content">
           <span class="badge featured">Featured</span>
           <h3>Private Student Studio</h3>
-          <p>Abuja • Bills included</p>
+          <p>Abuja • Gwarinpa • Bills included</p>
           <ul class="mini-features">
             <li>Private</li>
             <li>Near campus</li>
@@ -111,12 +153,16 @@
         </div>
       </a>
 
-      <a href="property.html" class="property-card">
+      <a href="property.html" class="property-card"
+         data-state="Enugu"
+         data-type="Hostel"
+         data-price="180000"
+         data-keywords="enugu affordable student hostel secure access unn">
         <div class="property-img img-three"></div>
         <div class="property-content">
           <span class="badge verified">Verified</span>
           <h3>Affordable Student Hostel</h3>
-          <p>Enugu • Secure access</p>
+          <p>Enugu State • Near UNEC • Secure access</p>
           <ul class="mini-features">
             <li>Hostel</li>
             <li>Affordable</li>
@@ -126,12 +172,16 @@
         </div>
       </a>
 
-      <a href="property.html" class="property-card">
+      <a href="property.html" class="property-card"
+         data-state="Rivers"
+         data-type="Shared Room"
+         data-price="220000"
+         data-keywords="rivers port harcourt campus room university water power">
         <div class="property-img img-four"></div>
         <div class="property-content">
           <span class="badge available">Available</span>
           <h3>Modern Campus Room</h3>
-          <p>Port Harcourt • Close to university</p>
+          <p>Rivers State • Port Harcourt • Close to university</p>
           <ul class="mini-features">
             <li>Room</li>
             <li>Water</li>
@@ -141,12 +191,16 @@
         </div>
       </a>
 
-      <a href="property.html" class="property-card">
+      <a href="property.html" class="property-card"
+         data-state="Kano"
+         data-type="Shared Room"
+         data-price="200000"
+         data-keywords="kano clean shared student flat quiet environment kitchen secure gate">
         <div class="property-img img-five"></div>
         <div class="property-content">
           <span class="badge verified">Verified</span>
           <h3>Clean Shared Student Flat</h3>
-          <p>Kano • Quiet environment</p>
+          <p>Kano State • Quiet environment</p>
           <ul class="mini-features">
             <li>Shared</li>
             <li>Kitchen</li>
@@ -156,12 +210,16 @@
         </div>
       </a>
 
-      <a href="property.html" class="property-card">
+      <a href="property.html" class="property-card"
+         data-state="Lagos"
+         data-type="Apartment"
+         data-price="650000"
+         data-keywords="lagos furnished student apartment premium location ac security lekki">
         <div class="property-img img-six"></div>
         <div class="property-content">
           <span class="badge featured">Featured</span>
           <h3>Furnished Student Apartment</h3>
-          <p>Lagos • Premium location</p>
+          <p>Lagos State • Premium location</p>
           <ul class="mini-features">
             <li>Furnished</li>
             <li>AC</li>
@@ -170,9 +228,18 @@
           <strong>₦650,000 / year</strong>
         </div>
       </a>
+
     </div>
+
+    <div id="noResults" style="display:none; text-align:center; margin-top:40px;">
+      <h3>No properties found</h3>
+      <p>Try another state, property type, or budget range.</p>
+      <button class="btn btn-accent" type="button" onclick="resetListingFilters()">Reset Filters</button>
+    </div>
+
   </div>
 </section>
+
 </main>
 
 <footer>
