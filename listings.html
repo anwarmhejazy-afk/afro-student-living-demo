@@ -2,18 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
   <title>Find Accommodation | Afro Student Living</title>
 
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
 <header class="site-header">
   <div class="container nav">
     <a href="index.html" class="logo">
-      <img src="images/logo.png" alt="Afro Student Living Logo">
+      <img src="images/logo.png">
     </a>
 
     <button class="menu-btn" id="menuBtn">☰</button>
@@ -21,10 +23,10 @@
     <nav class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
       <a href="listings.html">Find Accommodation</a>
-      <a href="#">List Property</a>
+      <a href="list-property.html">Submit Property</a>
       <a href="index.html#how-it-works">How It Works</a>
-      <a href="#">Login</a>
-      <a href="listings.html" class="btn btn-primary">Get Started</a>
+      <a href="login.html">Admin Login</a>
+      <a href="listings.html" class="btn btn-primary">Find a Room</a>
     </nav>
   </div>
 </header>
@@ -33,20 +35,20 @@
 
 <section class="page-hero">
   <div class="container">
-    <span class="eyebrow">Find accommodation</span>
-    <h1>Student homes across Nigeria</h1>
-    <p>Browse verified rooms, studios, hostels, and apartments in Abuja, Lagos, Port Harcourt, Enugu, and Kano.</p>
+    <span class="eyebrow">Student housing in Nigeria</span>
+    <h1>Find your perfect student accommodation</h1>
+    <p>Browse verified rooms, hostels, studios, and apartments across Nigeria.</p>
   </div>
 </section>
 
-<section class="section listings-section">
+<section class="section">
   <div class="container">
 
-    <div class="filters">
-      <input type="text" placeholder="Search city or university">
+    <!-- FILTER BAR -->
+    <div class="filter-bar">
 
       <select>
-        <option>City</option>
+        <option>All Cities</option>
         <option>Abuja</option>
         <option>Lagos</option>
         <option>Port Harcourt</option>
@@ -70,30 +72,18 @@
         <option>₦800,000+</option>
       </select>
 
-      <button class="btn btn-accent">Apply Filters</button>
+      <button class="btn btn-accent">Search</button>
     </div>
 
-    <div class="listings-top">
-      <div>
-        <h2>Available accommodation</h2>
-        <p>Showing verified sample listings. Real properties can be added later from the admin dashboard.</p>
-      </div>
-      <span class="count-pill">9 properties</span>
-    </div>
-
-    <div class="property-grid listing-grid">
+    <!-- PROPERTY GRID -->
+    <div class="property-grid">
 
       <a href="property.html" class="property-card">
         <div class="property-img img-one"></div>
         <div class="property-content">
           <span class="badge verified">Verified</span>
           <h3>Premium Shared Apartment</h3>
-          <p>Lagos • 10 minutes from campus</p>
-          <ul class="mini-features">
-            <li>WiFi</li>
-            <li>Security</li>
-            <li>Furnished</li>
-          </ul>
+          <p>Lagos • 10 min from campus</p>
           <strong>₦280,000 / year</strong>
         </div>
       </a>
@@ -104,11 +94,6 @@
           <span class="badge featured">Featured</span>
           <h3>Private Student Studio</h3>
           <p>Abuja • Bills included</p>
-          <ul class="mini-features">
-            <li>Private</li>
-            <li>Near campus</li>
-            <li>Secure</li>
-          </ul>
           <strong>₦450,000 / year</strong>
         </div>
       </a>
@@ -119,61 +104,12 @@
           <span class="badge verified">Verified</span>
           <h3>Affordable Student Hostel</h3>
           <p>Enugu • Secure access</p>
-          <ul class="mini-features">
-            <li>Hostel</li>
-            <li>Affordable</li>
-            <li>Student friendly</li>
-          </ul>
           <strong>₦180,000 / year</strong>
         </div>
       </a>
 
-      <a href="property.html" class="property-card">
-        <div class="property-img img-four"></div>
-        <div class="property-content">
-          <span class="badge available">Available</span>
-          <h3>Modern Campus Room</h3>
-          <p>Port Harcourt • Close to university</p>
-          <ul class="mini-features">
-            <li>Room</li>
-            <li>Water</li>
-            <li>Power</li>
-          </ul>
-          <strong>₦220,000 / year</strong>
-        </div>
-      </a>
-
-      <a href="property.html" class="property-card">
-        <div class="property-img img-five"></div>
-        <div class="property-content">
-          <span class="badge verified">Verified</span>
-          <h3>Clean Shared Student Flat</h3>
-          <p>Kano • Quiet environment</p>
-          <ul class="mini-features">
-            <li>Shared</li>
-            <li>Kitchen</li>
-            <li>Secure gate</li>
-          </ul>
-          <strong>₦200,000 / year</strong>
-        </div>
-      </a>
-
-      <a href="property.html" class="property-card">
-        <div class="property-img img-six"></div>
-        <div class="property-content">
-          <span class="badge featured">Featured</span>
-          <h3>Furnished Student Apartment</h3>
-          <p>Lagos • Premium location</p>
-          <ul class="mini-features">
-            <li>Furnished</li>
-            <li>AC</li>
-            <li>Security</li>
-          </ul>
-          <strong>₦650,000 / year</strong>
-        </div>
-      </a>
-
     </div>
+
   </div>
 </section>
 
@@ -181,8 +117,7 @@
 
 <footer>
   <div class="container footer-inner">
-    <p>© 2026 Afro Student Living. All rights reserved.</p>
-    <p>Student accommodation in Nigeria made simple.</p>
+    <p>© 2026 Afro Student Living</p>
   </div>
 </footer>
 

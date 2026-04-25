@@ -1019,3 +1019,62 @@ th {
     gap: 16px;
   }
 }
+
+/* SUBMIT PROPERTY PAGE */
+
+.submit-grid {
+  display: grid;
+  grid-template-columns: 0.9fr 1.1fr;
+  gap: 32px;
+  align-items: start;
+}
+
+.submit-info {
+  background: #fff;
+  border: 1px solid var(--border-soft);
+  border-radius: 28px;
+  padding: 30px;
+  box-shadow: var(--shadow-soft);
+}
+
+.submit-info h2 {
+  font-size: clamp(1.8rem, 3vw, 2.7rem);
+}
+
+.trust-list {
+  display: grid;
+  gap: 14px;
+  margin-top: 24px;
+}
+
+.trust-list div {
+  background: var(--bg-soft);
+  border: 1px solid var(--border-soft);
+  border-radius: 18px;
+  padding: 16px;
+}
+
+.trust-list strong {
+  display: block;
+  color: var(--primary);
+  font-size: 1.2rem;
+  margin-bottom: 4px;
+}
+
+.trust-list span {
+  color: var(--text-main);
+  font-weight: 800;
+}
+
+.admin-login-form {
+  margin-top: 22px;
+  box-shadow: none;
+  padding: 0;
+  border: none;
+}
+
+@media (max-width: 900px) {
+  .submit-grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -3,9 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>List Property | Afro Student Living</title>
+
+  <title>Submit Property | Afro Student Living</title>
+
   <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
 <header class="site-header">
@@ -14,30 +18,63 @@
       <img src="images/logo.png" alt="Afro Student Living Logo">
     </a>
 
-    <button class="menu-btn" id="menuBtn">☰</button>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
 
     <nav class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
       <a href="listings.html">Find Accommodation</a>
-      <a href="list-property.html">List Property</a>
+      <a href="list-property.html">Submit Property</a>
       <a href="index.html#how-it-works">How It Works</a>
-      <a href="login.html">Login</a>
-      <a href="login.html" class="btn btn-primary">Get Started</a>
+      <a href="login.html">Admin Login</a>
+      <a href="listings.html" class="btn btn-primary">Find a Room</a>
     </nav>
   </div>
 </header>
 
 <main>
+
   <section class="page-hero">
     <div class="container">
-      <span class="eyebrow">For landlords</span>
-      <h1>List your student property</h1>
-      <p>Add your room, hostel, studio, or apartment and connect with students across Nigeria.</p>
+      <span class="eyebrow">Property submission</span>
+      <h1>Submit a student property for review.</h1>
+      <p>
+        Property owners can submit accommodation details. Afro Student Living will review,
+        verify, and publish approved listings through the admin team.
+      </p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container form-shell">
+    <div class="container submit-grid">
+
+      <div class="submit-info">
+        <span class="eyebrow">Admin-controlled platform</span>
+        <h2>Safe listings. Verified before publishing.</h2>
+
+        <p>
+          Afro Student Living does not give public landlord dashboard access at this stage.
+          Property details are submitted for review, then the admin approves and publishes
+          trusted accommodation listings.
+        </p>
+
+        <div class="trust-list">
+          <div>
+            <strong>01</strong>
+            <span>Property owner submits details</span>
+          </div>
+
+          <div>
+            <strong>02</strong>
+            <span>Admin reviews and verifies</span>
+          </div>
+
+          <div>
+            <strong>03</strong>
+            <span>Approved property goes live</span>
+          </div>
+        </div>
+      </div>
+
       <form class="premium-form">
         <div class="form-group">
           <label>Property Name</label>
@@ -73,20 +110,43 @@
         </div>
 
         <div class="form-group">
-          <label>Description</label>
-          <textarea placeholder="Describe the property, location, facilities, and nearby university."></textarea>
+          <label>Owner / Contact Name</label>
+          <input type="text" placeholder="Full name">
         </div>
 
         <div class="form-group">
-          <label>Landlord WhatsApp Number</label>
+          <label>WhatsApp Number</label>
           <input type="text" placeholder="234XXXXXXXXXX">
         </div>
 
-        <button type="button" class="btn btn-accent">Submit Property</button>
+        <div class="form-group">
+          <label>Nearest University / Area</label>
+          <input type="text" placeholder="Example: Near UNILAG, Yaba">
+        </div>
+
+        <div class="form-group">
+          <label>Property Description</label>
+          <textarea placeholder="Describe the location, facilities, security, distance to university, and room condition."></textarea>
+        </div>
+
+        <button type="button" class="btn btn-accent full-btn">Submit for Admin Review</button>
+
+        <p class="small-note">
+          This preview form will later connect to the admin dashboard.
+        </p>
       </form>
+
     </div>
   </section>
+
 </main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Afro Student Living. All rights reserved.</p>
+    <p>Student accommodation in Nigeria made simple.</p>
+  </div>
+</footer>
 
 <script src="script.js"></script>
 </body>
