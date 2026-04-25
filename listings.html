@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Find Accommodation | Afro Student Living</title>
-  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 </head>
 <body>
 
@@ -22,41 +24,152 @@
       <a href="#">List Property</a>
       <a href="index.html#how-it-works">How It Works</a>
       <a href="#">Login</a>
-      <a href="#" class="btn btn-primary">Get Started</a>
+      <a href="listings.html" class="btn btn-primary">Get Started</a>
     </nav>
   </div>
 </header>
 
-<section class="section">
-  <div class="container">
-    <h2>Available Student Accommodation</h2>
+<main>
 
-    <div class="property-grid">
+<section class="page-hero">
+  <div class="container">
+    <span class="eyebrow">Find accommodation</span>
+    <h1>Student homes across Nigeria</h1>
+    <p>Browse verified rooms, studios, hostels, and apartments in Abuja, Lagos, Port Harcourt, Enugu, and Kano.</p>
+  </div>
+</section>
+
+<section class="section listings-section">
+  <div class="container">
+
+    <div class="filters">
+      <input type="text" placeholder="Search city or university">
+
+      <select>
+        <option>City</option>
+        <option>Abuja</option>
+        <option>Lagos</option>
+        <option>Port Harcourt</option>
+        <option>Enugu</option>
+        <option>Kano</option>
+      </select>
+
+      <select>
+        <option>Property Type</option>
+        <option>Studio</option>
+        <option>Shared Room</option>
+        <option>Hostel</option>
+        <option>Apartment</option>
+      </select>
+
+      <select>
+        <option>Budget</option>
+        <option>Below ₦150,000</option>
+        <option>₦150,000 - ₦400,000</option>
+        <option>₦400,000 - ₦800,000</option>
+        <option>₦800,000+</option>
+      </select>
+
+      <button class="btn btn-accent">Apply Filters</button>
+    </div>
+
+    <div class="listings-top">
+      <div>
+        <h2>Available accommodation</h2>
+        <p>Showing verified sample listings. Real properties can be added later from the admin dashboard.</p>
+      </div>
+      <span class="count-pill">9 properties</span>
+    </div>
+
+    <div class="property-grid listing-grid">
 
       <a href="property.html" class="property-card">
         <div class="property-img img-one"></div>
         <div class="property-content">
-          <h3>Private Student Studio</h3>
-          <p>Lagos • Near University</p>
-          <strong>₦450,000 / year</strong>
+          <span class="badge verified">Verified</span>
+          <h3>Premium Shared Apartment</h3>
+          <p>Lagos • 10 minutes from campus</p>
+          <ul class="mini-features">
+            <li>WiFi</li>
+            <li>Security</li>
+            <li>Furnished</li>
+          </ul>
+          <strong>₦280,000 / year</strong>
         </div>
       </a>
 
       <a href="property.html" class="property-card">
         <div class="property-img img-two"></div>
         <div class="property-content">
-          <h3>Shared Apartment</h3>
-          <p>Abuja • Secure Area</p>
-          <strong>₦300,000 / year</strong>
+          <span class="badge featured">Featured</span>
+          <h3>Private Student Studio</h3>
+          <p>Abuja • Bills included</p>
+          <ul class="mini-features">
+            <li>Private</li>
+            <li>Near campus</li>
+            <li>Secure</li>
+          </ul>
+          <strong>₦450,000 / year</strong>
         </div>
       </a>
 
       <a href="property.html" class="property-card">
         <div class="property-img img-three"></div>
         <div class="property-content">
-          <h3>Student Hostel</h3>
-          <p>Enugu • Affordable</p>
+          <span class="badge verified">Verified</span>
+          <h3>Affordable Student Hostel</h3>
+          <p>Enugu • Secure access</p>
+          <ul class="mini-features">
+            <li>Hostel</li>
+            <li>Affordable</li>
+            <li>Student friendly</li>
+          </ul>
           <strong>₦180,000 / year</strong>
+        </div>
+      </a>
+
+      <a href="property.html" class="property-card">
+        <div class="property-img img-four"></div>
+        <div class="property-content">
+          <span class="badge available">Available</span>
+          <h3>Modern Campus Room</h3>
+          <p>Port Harcourt • Close to university</p>
+          <ul class="mini-features">
+            <li>Room</li>
+            <li>Water</li>
+            <li>Power</li>
+          </ul>
+          <strong>₦220,000 / year</strong>
+        </div>
+      </a>
+
+      <a href="property.html" class="property-card">
+        <div class="property-img img-five"></div>
+        <div class="property-content">
+          <span class="badge verified">Verified</span>
+          <h3>Clean Shared Student Flat</h3>
+          <p>Kano • Quiet environment</p>
+          <ul class="mini-features">
+            <li>Shared</li>
+            <li>Kitchen</li>
+            <li>Secure gate</li>
+          </ul>
+          <strong>₦200,000 / year</strong>
+        </div>
+      </a>
+
+      <a href="property.html" class="property-card">
+        <div class="property-img img-six"></div>
+        <div class="property-content">
+          <span class="badge featured">Featured</span>
+          <h3>Furnished Student Apartment</h3>
+          <p>Lagos • Premium location</p>
+          <ul class="mini-features">
+            <li>Furnished</li>
+            <li>AC</li>
+            <li>Security</li>
+          </ul>
+          <strong>₦650,000 / year</strong>
         </div>
       </a>
 
@@ -64,5 +177,15 @@
   </div>
 </section>
 
+</main>
+
+<footer>
+  <div class="container footer-inner">
+    <p>© 2026 Afro Student Living. All rights reserved.</p>
+    <p>Student accommodation in Nigeria made simple.</p>
+  </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
