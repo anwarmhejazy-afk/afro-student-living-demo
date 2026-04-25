@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Login | Afro Student Living</title>
+
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+</head>
+
+<body>
+<header class="site-header">
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <img src="images/logo.png" alt="Afro Student Living Logo">
+    </a>
+
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu">☰</button>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="listings.html">Find Accommodation</a>
+      <a href="list-property.html">Submit Property</a>
+      <a href="index.html#how-it-works">How It Works</a>
+      <a href="login.html">Login</a>
+      <a href="listings.html" class="btn btn-primary">Find a Room</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="auth-section">
+  <div class="login-choice-wrap">
+    <div class="section-head login-head">
+      <span class="eyebrow">Choose access type</span>
+      <h1>Login to Afro Student Living</h1>
+      <p>
+        Students can manage booking requests, while admin can control properties,
+        submissions, bookings, and platform content.
+      </p>
+    </div>
+
+    <div class="login-choice-grid">
+      <div class="login-choice-card">
+        <span class="choice-icon">🎓</span>
+        <h2>Student Login</h2>
+        <p>
+          For students who want to request bookings, save properties,
+          and track accommodation status.
+        </p>
+
+        <form class="mini-login-form">
+          <input type="email" placeholder="Student email">
+          <input type="password" placeholder="Password">
+          <a href="student-dashboard.html" class="btn btn-accent full-btn">Continue as Student</a>
+        </form>
+
+        <a href="student-dashboard.html" class="secondary-link">Create student account</a>
+      </div>
+
+      <div class="login-choice-card admin-card">
+        <span class="choice-icon">🛡️</span>
+        <h2>Admin Login</h2>
+        <p>
+          Private access for Afro Student Living admin to review submissions,
+          manage listings, and handle booking requests.
+        </p>
+
+        <form class="mini-login-form">
+          <input type="email" placeholder="Admin email">
+          <input type="password" placeholder="Password">
+          <a href="admin-dashboard.html" class="btn btn-primary full-btn">Continue as Admin</a>
+        </form>
+
+        <span class="small-note">Admin access is private and restricted.</span>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>
