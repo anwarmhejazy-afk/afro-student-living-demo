@@ -39,7 +39,7 @@ const properties = [
   {
     id: "2",
     title: "Private Student Studio",
-    state: "Abuja",
+    state: "FCT Abuja",
     area: "Gwarinpa",
     university: "Near campus",
     type: "Studio",
