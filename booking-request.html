@@ -42,13 +42,13 @@
 <section class="section">
   <div class="container booking-grid">
     <div class="booking-summary">
-      <div class="property-img img-two summary-img"></div>
+      <div id="bookingPropertyImage" class="property-img img-two summary-img"></div>
 
       <div class="summary-content">
         <span class="badge verified">Verified</span>
-        <h3>Private Student Studio</h3>
-        <p>Abuja • Near campus • Bills included</p>
-        <strong>₦450,000 / year</strong>
+        <h3 id="bookingPropertyTitle">Private Student Studio</h3>
+        <p id="bookingPropertyLocation">Abuja • Near campus • Bills included</p>
+        <strong id="bookingPropertyPrice">₦450,000 / year</strong>
       </div>
     </div>
 
@@ -86,7 +86,7 @@
 
       <div class="form-group">
         <label>Message</label>
-        <textarea placeholder="Any special request or question about the property?"></textarea>
+        <textarea id="bookingMessage" placeholder="Any special request or question about the property?"></textarea>
       </div>
 
       <a href="login.html" class="btn btn-accent full-btn">Continue to Login</a>
