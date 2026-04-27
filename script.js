@@ -287,6 +287,7 @@ function loadPropertyPage() {
   const sidePrice = document.getElementById("sidePrice");
   const propertyDescription = document.getElementById("propertyDescription");
   const propertyFeatures = document.getElementById("propertyFeatures");
+  const propertyTypeText = document.getElementById("propertyTypeText");
   const bookingLink = document.getElementById("bookingLink");
   const whatsappLink = document.getElementById("whatsappLink");
 
@@ -297,6 +298,9 @@ function loadPropertyPage() {
   propertyPrice.textContent = property.priceText;
   sidePrice.textContent = property.priceText;
   propertyDescription.textContent = property.description;
+  if (propertyTypeText) {
+  propertyTypeText.textContent = property.type;
+}
 
   propertyImage.className = `detail-image ${property.imageClass}`;
   propertyBadge.className = `badge ${property.badgeClass}`;

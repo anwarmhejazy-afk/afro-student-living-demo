@@ -11,6 +11,7 @@
 </head>
 
 <body>
+
 <header class="site-header">
   <div class="container nav">
     <a href="index.html" class="logo">
@@ -31,39 +32,84 @@
 </header>
 
 <main>
-<section class="property-detail">
+
+<section class="property-detail premium-property-page">
   <div class="container">
+
     <a href="listings.html" class="back-link">← Back to listings</a>
 
-    <div class="detail-grid">
+    <div class="premium-property-header">
       <div>
-        <div id="propertyImage" class="detail-image img-two"></div>
+        <span id="propertyBadge" class="badge verified">Verified Property</span>
+        <h1 id="propertyTitle">Private Student Studio</h1>
+        <p id="propertyLocation" class="detail-location">Abuja • Gwarinpa • Near University of Abuja</p>
+      </div>
 
-        <div class="detail-content">
-          <span id="propertyBadge" class="badge verified">Verified Property</span>
+      <div class="property-header-price">
+        <span>From</span>
+        <strong id="propertyPrice">₦450,000 / year</strong>
+      </div>
+    </div>
 
-          <h1 id="propertyTitle">Private Student Studio</h1>
+    <!-- PREMIUM AIRBNB / BOOKING STYLE GALLERY -->
+    <div class="premium-gallery">
+      <div id="propertyImage" class="gallery-main img-two"></div>
 
-          <p id="propertyLocation" class="detail-location">Abuja • Near campus • Bills included</p>
+      <div class="gallery-side">
+        <img src="images/room1.jpg" alt="Student room bedroom">
+        <img src="images/room2.jpg" alt="Student accommodation bedroom">
+      </div>
 
-          <h2 id="propertyPrice">₦450,000 / year</h2>
+      <button class="gallery-btn" type="button">View photos</button>
+    </div>
+
+    <div class="detail-grid premium-detail-grid">
+
+      <div>
+        <div class="detail-content premium-detail-content">
+          <div class="property-summary-row">
+            <div>
+              <span class="summary-label">Property type</span>
+              <strong id="propertyTypeText">Student accommodation</strong>
+            </div>
+
+            <div>
+              <span class="summary-label">Status</span>
+              <strong>Admin verified</strong>
+            </div>
+
+            <div>
+              <span class="summary-label">Currency</span>
+              <strong>₦ NGN</strong>
+            </div>
+          </div>
+
+          <h2>About this accommodation</h2>
 
           <p id="propertyDescription">
             A clean and secure private student studio designed for comfort, privacy,
             and easy access to nearby universities.
           </p>
 
-          <h3>Features</h3>
+          <h3>What this place offers</h3>
 
-          <ul id="propertyFeatures" class="features">
+          <ul id="propertyFeatures" class="features premium-features">
             <li>✔ Fully furnished room</li>
             <li>✔ 24/7 security access</li>
             <li>✔ WiFi available</li>
           </ul>
+
+          <div class="property-note-box">
+            <h3>Important booking note</h3>
+            <p>
+              This property is listed for preview. Afro Student Living admin confirms availability
+              before any payment or final booking arrangement.
+            </p>
+          </div>
         </div>
       </div>
 
-      <aside class="inquiry-card">
+      <aside class="inquiry-card premium-booking-card">
         <h3>Reserve this student accommodation</h3>
         <p>Submit a booking request and the admin will confirm availability.</p>
 
@@ -84,13 +130,21 @@
           Contact on WhatsApp
         </a>
 
+        <div class="booking-trust-list">
+          <div>✓ Admin verified listing</div>
+          <div>✓ Booking request before payment</div>
+          <div>✓ Student-focused support</div>
+        </div>
+
         <p class="small-note">
           Booking confirmation is managed by Afro Student Living admin.
         </p>
       </aside>
+
     </div>
   </div>
 </section>
+
 </main>
 
 <footer>
