@@ -1531,4 +1531,9 @@ footer {
 .scroll-top-btn:hover {
   transform: scale(1.12);
   background: linear-gradient(135deg, #F59E0B, #D97706);
+  box-shadow: 0 20px 60px rgba(37, 99, 235, 0.45);
+}
+
+html {
+  scroll-behavior: smooth;
 }
