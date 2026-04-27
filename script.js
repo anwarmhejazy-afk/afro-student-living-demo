@@ -404,7 +404,7 @@ const scrollBtn = document.getElementById("scrollTopBtn");
 window.addEventListener("scroll", () => {
   if (!scrollBtn) return;
 
-  if (window.scrollY > 400) {
+  if (window.scrollY > 150) {
     scrollBtn.classList.add("show");
   } else {
     scrollBtn.classList.remove("show");
