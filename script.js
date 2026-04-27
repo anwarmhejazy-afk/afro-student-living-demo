@@ -41,21 +41,21 @@ const properties = [
     title: "Private Student Studio",
     state: "FCT Abuja",
     area: "Gwarinpa",
-    university: "Near campus",
+    university: "Near University of Abuja",
     type: "Studio",
     price: 450000,
     priceText: "₦450,000 / year",
     badge: "Featured Property",
     badgeClass: "featured",
     imageClass: "img-two",
-    location: "Abuja • Gwarinpa • Bills included",
+    location: "Abuja • Gwarinpa • Near University of Abuja",
     description:
       "A private student studio in Abuja with a quiet environment, secure access, and essential amenities. Suitable for students who want privacy, comfort, and a peaceful study-friendly space.",
     features: [
       "✔ Private room",
       "✔ Bills included",
       "✔ Secure building",
-      "✔ Near campus area",
+      "✔ Near University of Abuja",
       "✔ Clean bathroom access",
       "✔ Suitable for focused study"
     ]
@@ -72,7 +72,7 @@ const properties = [
     badge: "Verified Property",
     badgeClass: "verified",
     imageClass: "img-three",
-    location: "Enugu State • Near UNEC • Secure access",
+    location: "Enugu State • Near UNEC",
     description:
       "An affordable student hostel near UNEC with simple facilities, secure access, and student-friendly pricing. A good choice for students looking for practical accommodation on a budget.",
     features: [
@@ -89,14 +89,14 @@ const properties = [
     title: "Modern Campus Room",
     state: "Rivers",
     area: "Port Harcourt",
-    university: "Close to university",
+    university: "Close to University",
     type: "Shared Room",
     price: 220000,
     priceText: "₦220,000 / year",
     badge: "Available Now",
     badgeClass: "available",
     imageClass: "img-four",
-    location: "Rivers State • Port Harcourt • Close to university",
+    location: "Rivers State • Port Harcourt • Close to University",
     description:
       "A modern campus room in Port Harcourt with access to water, power, and a student-friendly environment. Suitable for students who want affordable accommodation close to university areas.",
     features: [
@@ -113,14 +113,14 @@ const properties = [
     title: "Clean Shared Student Flat",
     state: "Kano",
     area: "Kano City",
-    university: "Quiet environment",
+    university: "Near Bayero University",
     type: "Shared Room",
     price: 200000,
     priceText: "₦200,000 / year",
     badge: "Verified Property",
     badgeClass: "verified",
     imageClass: "img-five",
-    location: "Kano State • Quiet environment",
+    location: "Kano State • Near Bayero University",
     description:
       "A clean shared student flat in Kano with a calm surrounding and secure gate access. Suitable for students looking for simple, safe, and affordable shared accommodation.",
     features: [
@@ -137,14 +137,14 @@ const properties = [
     title: "Furnished Student Apartment",
     state: "Lagos",
     area: "Lekki",
-    university: "Premium location",
+    university: "Premium Location",
     type: "Apartment",
     price: 650000,
     priceText: "₦650,000 / year",
     badge: "Featured Property",
     badgeClass: "featured",
     imageClass: "img-six",
-    location: "Lagos State • Lekki • Premium location",
+    location: "Lagos State • Lekki • Premium Location",
     description:
       "A furnished student apartment in a premium Lagos location with strong security, comfortable interiors, and access to key facilities. Suitable for students who want a higher-standard accommodation option.",
     features: [
@@ -249,7 +249,28 @@ function filterListings() {
   }
 
   if (noResults) {
-    noResults.style.display = visibleCount === 0 ? "block" : "none";
+    if (visibleCount === 0) {
+      noResults.style.display = "block";
+
+      if (selectedState) {
+        const displayState = selectedState === "FCT Abuja" ? "Abuja" : selectedState;
+
+        noResults.innerHTML = `
+          <h3>No properties available in ${displayState} yet</h3>
+          <p>We are expanding quickly. Try one of these popular locations:</p>
+          <p><strong>Lagos • Abuja • Enugu • Rivers • Kano</strong></p>
+          <button class="btn btn-accent" onclick="resetListingFilters()">Reset Filters</button>
+        `;
+      } else {
+        noResults.innerHTML = `
+          <h3>No properties found</h3>
+          <p>Try another state, property type, or budget range.</p>
+          <button class="btn btn-accent" onclick="resetListingFilters()">Reset Filters</button>
+        `;
+      }
+    } else {
+      noResults.style.display = "none";
+    }
   }
 }
 
@@ -296,22 +317,28 @@ function loadPropertyPage() {
   propertyTitle.textContent = property.title;
   propertyLocation.textContent = property.location;
   propertyPrice.textContent = property.priceText;
-  sidePrice.textContent = property.priceText;
-  propertyDescription.textContent = property.description;
-  if (propertyTypeText) {
-  propertyTypeText.textContent = property.type;
-}
 
-  propertyImage.className = `detail-image ${property.imageClass}`;
-  propertyBadge.className = `badge ${property.badgeClass}`;
-  propertyBadge.textContent = property.badge;
+  if (sidePrice) sidePrice.textContent = property.priceText;
+  if (propertyDescription) propertyDescription.textContent = property.description;
+  if (propertyTypeText) propertyTypeText.textContent = property.type;
 
-  propertyFeatures.innerHTML = property.features
-    .map((feature) => `<li>${feature}</li>`)
-    .join("");
+  if (propertyImage) {
+    propertyImage.className = `gallery-main ${property.imageClass}`;
+  }
 
-  bookingLink.href = `booking-request.html?id=${property.id}`;
-  whatsappLink.href = `https://wa.me/2340000000000?text=${formatWhatsappMessage(property)}`;
+  if (propertyBadge) {
+    propertyBadge.className = `badge ${property.badgeClass}`;
+    propertyBadge.textContent = property.badge;
+  }
+
+  if (propertyFeatures) {
+    propertyFeatures.innerHTML = property.features
+      .map((feature) => `<li>${feature}</li>`)
+      .join("");
+  }
+
+  if (bookingLink) bookingLink.href = `booking-request.html?id=${property.id}`;
+  if (whatsappLink) whatsappLink.href = `https://wa.me/2340000000000?text=${formatWhatsappMessage(property)}`;
 }
 
 loadPropertyPage();
@@ -336,10 +363,36 @@ function loadBookingPage() {
   bookingPropertyTitle.textContent = property.title;
   bookingPropertyLocation.textContent = property.location;
   bookingPropertyPrice.textContent = property.priceText;
-  bookingPropertyImage.className = `property-img ${property.imageClass} summary-img`;
 
-  bookingMessage.value =
-    `Hello, I would like to request booking for ${property.title} in ${property.location}.`;
+  if (bookingPropertyImage) {
+    bookingPropertyImage.className = `property-img ${property.imageClass} summary-img`;
+  }
+
+  if (bookingMessage) {
+    bookingMessage.value =
+      `Hello, I would like to request booking for ${property.title} in ${property.location}.`;
+  }
 }
 
 loadBookingPage();
+
+/* =========================
+   SCROLL REVEAL ANIMATION
+========================= */
+
+const reveals = document.querySelectorAll(".reveal");
+
+function revealOnScroll() {
+  const triggerBottom = window.innerHeight * 0.85;
+
+  reveals.forEach((el) => {
+    const top = el.getBoundingClientRect().top;
+
+    if (top < triggerBottom) {
+      el.classList.add("show");
+    }
+  });
+}
+
+window.addEventListener("scroll", revealOnScroll);
+window.addEventListener("load", revealOnScroll);
