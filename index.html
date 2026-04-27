@@ -3,12 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
   <title>Afro Student Living | Student Accommodation in Nigeria</title>
+
   <link rel="stylesheet" href="style.css" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
+
 <header class="site-header">
   <div class="container nav">
     <a href="index.html" class="logo">
@@ -21,7 +24,7 @@
       <a href="index.html">Home</a>
       <a href="listings.html">Find Accommodation</a>
       <a href="list-property.html">Submit Property</a>
-      <a href="index.html#how-it-works">How It Works</a>
+      <a href="#how-it-works">How It Works</a>
       <a href="login.html">Login</a>
       <a href="listings.html" class="btn btn-primary">Find a Room</a>
     </nav>
@@ -30,64 +33,64 @@
 
 <main>
 
-<section class="hero">
-  <div class="container hero-grid">
-    <div class="hero-content">
-      <span class="eyebrow">Trusted student housing in Nigeria</span>
-      <h1>Book safe student accommodation near your university.</h1>
-      <p>
-        Afro Student Living helps students compare verified rooms, hostels,
-        studios, and apartments across major Nigerian student cities.
-      </p>
+<section class="hero hero-image">
+  <div class="hero-dark-overlay"></div>
 
-      <div class="search-box">
-        <input type="text" placeholder="City or university" />
+  <div class="container hero-content-wide">
+    <span class="eyebrow hero-eyebrow">Trusted student housing in Nigeria</span>
 
-        <select>
-          <option>Property Type</option>
-          <option>Shared Room</option>
-          <option>Studio</option>
-          <option>Hostel</option>
-          <option>Apartment</option>
-        </select>
+    <h1>Book safe student accommodation near your university.</h1>
 
-        <select>
-          <option>Budget</option>
-          <option>Below ₦150,000</option>
-          <option>₦150,000 - ₦400,000</option>
-          <option>₦400,000 - ₦800,000</option>
-          <option>₦800,000+</option>
-        </select>
+    <p>
+      Afro Student Living helps students compare verified rooms, hostels,
+      studios, and apartments across major Nigerian student cities.
+    </p>
 
-        <a href="listings.html" class="btn btn-accent">Search</a>
-      </div>
+    <div class="hero-search-panel">
+      <input type="text" placeholder="Search state, area, university">
 
-      <div class="hero-stats">
-        <div>
-          <strong>500+</strong>
-          <span>Student rooms</span>
-        </div>
-        <div>
-          <strong>80+</strong>
-          <span>Verified listings</span>
-        </div>
-        <div>
-          <strong>5</strong>
-          <span>Nigerian cities</span>
-        </div>
-      </div>
+      <select>
+        <option>All States</option>
+        <option>Abuja</option>
+        <option>Lagos</option>
+        <option>Enugu</option>
+        <option>Rivers</option>
+        <option>Kano</option>
+      </select>
+
+      <select>
+        <option>Property Type</option>
+        <option>Studio</option>
+        <option>Shared Room</option>
+        <option>Hostel</option>
+        <option>Apartment</option>
+      </select>
+
+      <select>
+        <option>Budget</option>
+        <option>Below ₦150,000</option>
+        <option>₦150,000 - ₦400,000</option>
+        <option>₦400,000 - ₦800,000</option>
+        <option>₦800,000+</option>
+      </select>
+
+      <a href="listings.html" class="btn btn-accent">Search</a>
     </div>
 
-    <div class="hero-card">
-      <div class="image-box">
-        <div class="floating-badge">Verified Property</div>
+    <div class="hero-trust-row">
+      <div>
+        <strong>500+</strong>
+        <span>Student rooms</span>
       </div>
 
-      <div class="preview-card">
-        <span class="badge available">Available Now</span>
-        <h3>Modern Student Studio</h3>
-        <p>Near campus • Secure building • Bills included</p>
-        <strong>From ₦350,000 / year</strong>
+      <div>
+        <strong>80+</strong>
+        <span>Verified listings</span>
+      </div>
+
+      <div>
+        <strong>5</strong>
+        <span>Launch locations</span>
       </div>
     </div>
   </div>
@@ -145,35 +148,37 @@
   </div>
 
   <div class="container property-grid">
-    <a href="property.html" class="property-card">
+
+    <a href="property.html?id=1" class="property-card">
       <div class="property-img img-one"></div>
       <div class="property-content">
         <span class="badge verified">Verified</span>
         <h3>Premium Shared Apartment</h3>
-        <p>Lagos • 10 minutes from campus</p>
+        <p>Lagos • Yaba • Near UNILAG</p>
         <strong>₦280,000 / year</strong>
       </div>
     </a>
 
-    <a href="property.html" class="property-card">
+    <a href="property.html?id=2" class="property-card">
       <div class="property-img img-two"></div>
       <div class="property-content">
         <span class="badge featured">Featured</span>
         <h3>Private Student Studio</h3>
-        <p>Abuja • Bills included</p>
+        <p>Abuja • Gwarinpa • Near University of Abuja</p>
         <strong>₦450,000 / year</strong>
       </div>
     </a>
 
-    <a href="property.html" class="property-card">
+    <a href="property.html?id=3" class="property-card">
       <div class="property-img img-three"></div>
       <div class="property-content">
         <span class="badge verified">Verified</span>
         <h3>Affordable Student Hostel</h3>
-        <p>Enugu • Secure access</p>
+        <p>Enugu • Near UNEC</p>
         <strong>₦180,000 / year</strong>
       </div>
     </a>
+
   </div>
 </section>
 
@@ -192,7 +197,7 @@
       <div class="process-number">01</div>
       <h3>Search verified accommodation</h3>
       <p>
-        Students search by city, university area, property type, and yearly budget in Nigerian Naira.
+        Students search by state, university area, property type, and yearly budget in Nigerian Naira.
       </p>
       <ul>
         <li>Compare rooms, hostels, studios, and apartments</li>
@@ -246,10 +251,12 @@
       <strong>Admin controlled</strong>
       <span>Only approved listings go live</span>
     </div>
+
     <div>
       <strong>Student focused</strong>
       <span>Built for safe accommodation search</span>
     </div>
+
     <div>
       <strong>Nigeria ready</strong>
       <span>Prices shown in ₦ Nigerian Naira</span>
