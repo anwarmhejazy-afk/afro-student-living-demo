@@ -31,56 +31,75 @@
 </header>
 
 <main>
-<section class="page-hero">
-  <div class="container">
-    <span class="eyebrow">Booking request</span>
-    <h1>Request to book this accommodation.</h1>
-    <p>Submit your details and the admin will confirm availability before payment or move-in arrangements.</p>
+
+<section class="page-image-hero booking-hero" style="background-image: url('images/login-hero.jpg');">
+  <div class="page-image-overlay"></div>
+  <div class="container page-image-content">
+    <span class="eyebrow hero-eyebrow">Booking request</span>
+    <h1>Send a safe accommodation request before making any payment.</h1>
+    <p>
+      Complete your details and send the request directly to Afro Student Living via WhatsApp.
+      The admin will confirm availability and guide you through the next step.
+    </p>
   </div>
 </section>
 
 <section class="section">
   <div class="container booking-grid">
+
     <div class="booking-summary">
       <div id="bookingPropertyImage" class="property-img img-two summary-img"></div>
 
       <div class="summary-content">
         <span class="badge verified">Verified</span>
         <h3 id="bookingPropertyTitle">Private Student Studio</h3>
-        <p id="bookingPropertyLocation">Abuja • Near campus • Bills included</p>
+        <p id="bookingPropertyLocation">Abuja • Near University of Abuja</p>
         <strong id="bookingPropertyPrice">₦450,000 / year</strong>
+      </div>
+
+      <div class="booking-side-note">
+        <h3>Before you book</h3>
+        <p>
+          Afro Student Living recommends confirming availability, location, rules,
+          and payment details with admin before making any payment.
+        </p>
       </div>
     </div>
 
-    <form class="premium-form">
-      <h2>Student details</h2>
+    <form class="premium-form booking-form-card">
+      <span class="eyebrow">Student details</span>
+      <h2>Request this accommodation</h2>
+      <p>
+        Fill in your details below. Your request will be prepared as a WhatsApp message
+        with the selected property information.
+      </p>
 
       <div class="form-row">
         <div class="form-group">
           <label>Full Name</label>
-          <input type="text" placeholder="Your full name">
+          <input id="studentName" type="text" placeholder="Your full name">
         </div>
 
         <div class="form-group">
           <label>Phone / WhatsApp</label>
-          <input type="text" placeholder="234XXXXXXXXXX">
+          <input id="studentPhone" type="text" placeholder="234XXXXXXXXXX">
         </div>
       </div>
 
       <div class="form-group">
         <label>Email Address</label>
-        <input type="email" placeholder="you@example.com">
+        <input id="studentEmail" type="email" placeholder="you@example.com">
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>University</label>
-          <input type="text" placeholder="Example: University of Lagos">
+          <input id="studentUniversity" type="text" placeholder="Example: University of Lagos">
         </div>
 
         <div class="form-group">
           <label>Move-in Date</label>
-          <input type="date">
+          <input id="moveDate" type="date">
         </div>
       </div>
 
@@ -89,14 +108,19 @@
         <textarea id="bookingMessage" placeholder="Any special request or question about the property?"></textarea>
       </div>
 
-      <a href="login.html" class="btn btn-accent full-btn">Continue to Login</a>
+      <button id="bookingWhatsappBtn" type="button" class="btn btn-accent full-btn">
+        Send Booking Request on WhatsApp
+      </button>
+
+      <a href="login.html" class="btn btn-outline full-btn">Continue to Login</a>
 
       <p class="small-note">
-        Students will need an account to track booking status.
+        Students can later login to track booking status when the real dashboard is connected.
       </p>
     </form>
   </div>
 </section>
+
 </main>
 
 <footer>
@@ -107,6 +131,7 @@
 </footer>
 
 <button id="scrollTopBtn" class="scroll-top-btn">↑</button>
+
 <script src="script.js"></script>
 </body>
 </html>

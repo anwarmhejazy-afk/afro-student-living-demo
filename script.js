@@ -1,3 +1,5 @@
+const businessWhatsappNumber = "2340000000000"; // Replace with your friend's WhatsApp number
+
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
@@ -166,7 +168,8 @@ function getPropertyById() {
 
 function formatWhatsappMessage(property) {
   return encodeURIComponent(
-    `Hello, I'm interested in this property on Afro Student Living.\n\n` +
+    `Hello Afro Student Living,\n\n` +
+    `I'm interested in this property:\n\n` +
     `Property: ${property.title}\n` +
     `Location: ${property.location}\n` +
     `Price: ${property.priceText}\n\n` +
@@ -234,9 +237,7 @@ function filterListings() {
     if (isVisible) visibleCount += 1;
   });
 
-  if (propertyCount) {
-    propertyCount.textContent = visibleCount;
-  }
+  if (propertyCount) propertyCount.textContent = visibleCount;
 
   if (resultsText) {
     if (visibleCount === propertyCards.length) {
@@ -338,7 +339,10 @@ function loadPropertyPage() {
   }
 
   if (bookingLink) bookingLink.href = `booking-request.html?id=${property.id}`;
-  if (whatsappLink) whatsappLink.href = `https://wa.me/2340000000000?text=${formatWhatsappMessage(property)}`;
+
+  if (whatsappLink) {
+    whatsappLink.href = `https://wa.me/${businessWhatsappNumber}?text=${formatWhatsappMessage(property)}`;
+  }
 }
 
 loadPropertyPage();
@@ -377,6 +381,166 @@ function loadBookingPage() {
 loadBookingPage();
 
 /* =========================
+   BOOKING WHATSAPP AUTO MESSAGE
+========================= */
+
+const bookingWhatsappBtn = document.getElementById("bookingWhatsappBtn");
+
+if (bookingWhatsappBtn) {
+  bookingWhatsappBtn.addEventListener("click", () => {
+    const property = getPropertyById();
+
+    const name = document.getElementById("studentName")?.value || "";
+    const phone = document.getElementById("studentPhone")?.value || "";
+    const email = document.getElementById("studentEmail")?.value || "";
+    const university = document.getElementById("studentUniversity")?.value || "";
+    const moveDate = document.getElementById("moveDate")?.value || "";
+    const message = document.getElementById("bookingMessage")?.value || "";
+
+    const text = encodeURIComponent(
+      `Hello Afro Student Living,\n\n` +
+      `I want to request booking for:\n\n` +
+      `Property: ${property.title}\n` +
+      `Location: ${property.location}\n` +
+      `Price: ${property.priceText}\n\n` +
+      `Student Details:\n` +
+      `Name: ${name}\n` +
+      `Phone: ${phone}\n` +
+      `Email: ${email}\n` +
+      `University: ${university}\n` +
+      `Move-in Date: ${moveDate}\n\n` +
+      `Message: ${message}\n\n` +
+      `Please confirm availability.`
+    );
+
+    window.open(`https://wa.me/${businessWhatsappNumber}?text=${text}`, "_blank");
+  });
+}
+
+/* =========================
+   IMAGE PREVIEW + SUBMIT PROPERTY
+========================= */
+
+const propertyImagesInput = document.getElementById("propertyImages");
+const imagePreview = document.getElementById("imagePreview");
+let uploadedPropertyImages = [];
+
+if (propertyImagesInput && imagePreview) {
+  propertyImagesInput.addEventListener("change", () => {
+    uploadedPropertyImages = [];
+    imagePreview.innerHTML = "";
+
+    const files = Array.from(propertyImagesInput.files).slice(0, 6);
+
+    files.forEach((file) => {
+      const reader = new FileReader();
+
+      reader.onload = (e) => {
+        uploadedPropertyImages.push(e.target.result);
+
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.alt = "Uploaded property preview";
+        imagePreview.appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+    });
+  });
+}
+
+const submitPropertyForm = document.getElementById("submitPropertyForm");
+
+if (submitPropertyForm) {
+  submitPropertyForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    const submission = {
+      id: Date.now(),
+      propertyName: document.getElementById("propertyName")?.value || "",
+      state: document.getElementById("propertyState")?.value || "",
+      type: document.getElementById("propertyType")?.value || "",
+      price: document.getElementById("propertyPrice")?.value || "",
+      ownerName: document.getElementById("ownerName")?.value || "",
+      whatsapp: document.getElementById("ownerWhatsapp")?.value || "",
+      area: document.getElementById("propertyArea")?.value || "",
+      description: document.getElementById("propertyDescriptionInput")?.value || "",
+      images: uploadedPropertyImages,
+      status: "Pending Review"
+    };
+
+    const submissions = JSON.parse(localStorage.getItem("propertySubmissions")) || [];
+    submissions.push(submission);
+    localStorage.setItem("propertySubmissions", JSON.stringify(submissions));
+
+    alert("Property submitted for admin review.");
+    submitPropertyForm.reset();
+    uploadedPropertyImages = [];
+
+    if (imagePreview) imagePreview.innerHTML = "";
+  });
+}
+
+/* =========================
+   ADMIN DASHBOARD SUBMISSIONS
+========================= */
+
+const adminSubmissionsTable = document.getElementById("adminSubmissionsTable");
+const submissionCount = document.getElementById("submissionCount");
+const clearSubmissionsBtn = document.getElementById("clearSubmissionsBtn");
+
+function renderAdminSubmissions() {
+  if (!adminSubmissionsTable) return;
+
+  const submissions = JSON.parse(localStorage.getItem("propertySubmissions")) || [];
+
+  if (submissionCount) {
+    submissionCount.textContent = submissions.length;
+  }
+
+  adminSubmissionsTable.innerHTML = submissions.length
+    ? submissions.map(item => {
+        const firstImage = item.images && item.images.length
+          ? `<img src="${item.images[0]}" alt="Property" class="admin-thumb">`
+          : `<span class="no-image">No image</span>`;
+
+        return `
+          <tr>
+            <td>${firstImage}</td>
+            <td>
+              <strong>${item.propertyName}</strong>
+              <br>
+              <small>${item.area}</small>
+            </td>
+            <td>${item.state}</td>
+            <td>${item.type}</td>
+            <td>${item.price}</td>
+            <td>${item.ownerName}</td>
+            <td>${item.whatsapp}</td>
+            <td><span class="table-badge pending">${item.status}</span></td>
+          </tr>
+        `;
+      }).join("")
+    : `
+      <tr>
+        <td colspan="8">No property submissions yet.</td>
+      </tr>
+    `;
+}
+
+renderAdminSubmissions();
+
+if (clearSubmissionsBtn) {
+  clearSubmissionsBtn.addEventListener("click", () => {
+    const confirmed = confirm("Clear all preview property submissions?");
+    if (!confirmed) return;
+
+    localStorage.removeItem("propertySubmissions");
+    renderAdminSubmissions();
+  });
+}
+
+/* =========================
    SCROLL REVEAL ANIMATION
 ========================= */
 
@@ -397,7 +561,9 @@ function revealOnScroll() {
 window.addEventListener("scroll", revealOnScroll);
 window.addEventListener("load", revealOnScroll);
 
-/* SCROLL TO TOP BUTTON */
+/* =========================
+   SCROLL TO TOP BUTTON
+========================= */
 
 const scrollBtn = document.getElementById("scrollTopBtn");
 

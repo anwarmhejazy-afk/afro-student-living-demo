@@ -36,59 +36,84 @@
   <div class="page-image-overlay"></div>
   <div class="container page-image-content">
     <span class="eyebrow hero-eyebrow">Submit property</span>
-    <h1>List student accommodation for admin review.</h1>
-    <p>Property owners can send accommodation details. Afro Student Living admin reviews and approves listings before publishing.</p>
+    <h1>Submit student accommodation for professional admin review.</h1>
+    <p>
+      Property owners can submit accommodation details, images, location information,
+      and contact details. Afro Student Living admin reviews every listing before publishing.
+    </p>
   </div>
 </section>
 
 <section class="section">
   <div class="container submit-grid">
+
     <div class="submit-info">
-      <span class="eyebrow">Admin-controlled platform</span>
-      <h2>Safe listings. Verified before publishing.</h2>
+      <span class="eyebrow">Admin-controlled listings</span>
+      <h2>Only reviewed properties should go live.</h2>
 
       <p>
-        Property submissions do not create public admin access. Owners submit details,
-        then Afro Student Living admin reviews and decides whether to publish the listing.
+        This page allows property owners or agents to submit accommodation details.
+        The submission does not give them dashboard access. Your friend/admin remains
+        in full control of what appears publicly.
       </p>
 
       <div class="trust-list">
         <div>
           <strong>01</strong>
-          <span>Property owner submits details</span>
+          <span>Owner submits property details and images</span>
         </div>
         <div>
           <strong>02</strong>
-          <span>Admin reviews and verifies</span>
+          <span>Admin checks price, location, quality, and safety</span>
         </div>
         <div>
           <strong>03</strong>
-          <span>Approved property goes live</span>
+          <span>Approved listings can be added to the public site</span>
         </div>
+      </div>
+
+      <div class="property-note-box">
+        <h3>Important</h3>
+        <p>
+          Image upload is currently a preview feature using browser storage.
+          For a real live admin system, this should later connect to Supabase storage.
+        </p>
       </div>
     </div>
 
-    <form class="premium-form">
+    <form class="premium-form" id="submitPropertyForm">
+      <span class="eyebrow">Property submission form</span>
+      <h2>Submit accommodation details</h2>
+      <p>
+        Add the property details below. The admin can review submissions from the admin dashboard.
+      </p>
+
       <div class="form-group">
         <label>Property Name</label>
-        <input type="text" placeholder="Example: Modern Student Studio">
+        <input id="propertyName" type="text" placeholder="Example: Modern Student Studio" required>
       </div>
 
       <div class="form-row">
         <div class="form-group">
           <label>State</label>
-          <select>
+          <select id="propertyState" required>
+            <option value="">Select state</option>
             <option>FCT Abuja</option>
             <option>Lagos</option>
             <option>Enugu</option>
             <option>Rivers</option>
             <option>Kano</option>
+            <option>Ogun</option>
+            <option>Oyo</option>
+            <option>Delta</option>
+            <option>Edo</option>
           </select>
         </div>
 
         <div class="form-group">
           <label>Property Type</label>
-          <select>
+          <select id="propertyType" required>
+            <option value="">Select type</option>
             <option>Studio</option>
             <option>Shared Room</option>
             <option>Hostel</option>
@@ -99,33 +124,43 @@
 
       <div class="form-group">
         <label>Price</label>
-        <input type="text" placeholder="₦450,000 / year">
+        <input id="propertyPrice" type="text" placeholder="₦450,000 / year" required>
       </div>
 
-      <div class="form-group">
-        <label>Owner / Contact Name</label>
-        <input type="text" placeholder="Full name">
-      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Owner / Contact Name</label>
+          <input id="ownerName" type="text" placeholder="Full name" required>
+        </div>
 
-      <div class="form-group">
-        <label>WhatsApp Number</label>
-        <input type="text" placeholder="234XXXXXXXXXX">
+        <div class="form-group">
+          <label>WhatsApp Number</label>
+          <input id="ownerWhatsapp" type="text" placeholder="234XXXXXXXXXX" required>
+        </div>
       </div>
 
       <div class="form-group">
         <label>Nearest University / Area</label>
-        <input type="text" placeholder="Example: Near UNILAG, Yaba">
+        <input id="propertyArea" type="text" placeholder="Example: Near UNILAG, Yaba" required>
       </div>
 
       <div class="form-group">
         <label>Property Description</label>
-        <textarea placeholder="Describe the location, facilities, security, distance to university, and room condition."></textarea>
+        <textarea id="propertyDescriptionInput" placeholder="Describe the location, facilities, security, distance to university, room condition, and rules." required></textarea>
       </div>
 
-      <button type="button" class="btn btn-accent full-btn">Submit for Admin Review</button>
+      <div class="form-group">
+        <label>Upload Property Images</label>
+        <input id="propertyImages" type="file" accept="image/*" multiple>
+        <p class="small-note">Upload bedroom, bathroom, kitchen, living area, and outside photos if available.</p>
+      </div>
+
+      <div id="imagePreview" class="upload-preview"></div>
+
+      <button type="submit" class="btn btn-accent full-btn">Submit for Admin Review</button>
 
       <p class="small-note">
-        This preview form will later connect to the admin dashboard.
+        This is a preview system. Submissions are stored in this browser until a real database is connected.
       </p>
     </form>
   </div>
@@ -140,6 +175,7 @@
 </footer>
 
 <button id="scrollTopBtn" class="scroll-top-btn">↑</button>
+
 <script src="script.js"></script>
 </body>
 </html>
