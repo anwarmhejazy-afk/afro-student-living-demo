@@ -58,34 +58,34 @@
     </div>
 
     <div class="hero-search-panel">
-      <input type="text" placeholder="Search state, area, university">
+      <input id="heroSearchInput" type="text" placeholder="Search state, area, university">
 
-      <select>
-        <option>All States</option>
-        <option>Abuja</option>
-        <option>Lagos</option>
-        <option>Enugu</option>
-        <option>Rivers</option>
-        <option>Kano</option>
+      <select id="heroStateFilter">
+        <option value="">All States</option>
+        <option value="FCT Abuja">Abuja</option>
+        <option value="Lagos">Lagos</option>
+        <option value="Enugu">Enugu</option>
+        <option value="Rivers">Rivers</option>
+        <option value="Kano">Kano</option>
       </select>
 
-      <select>
-        <option>Property Type</option>
-        <option>Studio</option>
-        <option>Shared Room</option>
-        <option>Hostel</option>
-        <option>Apartment</option>
+      <select id="heroTypeFilter">
+        <option value="">Property Type</option>
+        <option value="Studio">Studio</option>
+        <option value="Shared Room">Shared Room</option>
+        <option value="Hostel">Hostel</option>
+        <option value="Apartment">Apartment</option>
       </select>
 
-      <select>
-        <option>Budget</option>
-        <option>Below ₦150,000</option>
-        <option>₦150,000 - ₦400,000</option>
-        <option>₦400,000 - ₦800,000</option>
-        <option>₦800,000+</option>
+      <select id="heroBudgetFilter">
+        <option value="">Budget</option>
+        <option value="150000">Below ₦150,000</option>
+        <option value="400000">₦150,000 - ₦400,000</option>
+        <option value="800000">₦400,000 - ₦800,000</option>
+        <option value="800001">₦800,000+</option>
       </select>
 
-      <a href="listings.html" class="btn btn-accent">Search</a>
+      <button id="heroSearchBtn" type="button" class="btn btn-accent">Search</button>
     </div>
   </div>
 </section>
@@ -98,35 +98,35 @@
   </div>
 
   <div class="container city-grid">
-    <a href="listings.html" class="city-card city-abuja">
+    <a href="listings.html?state=FCT%20Abuja" class="city-card city-abuja">
       <div class="city-overlay">
         <h3>Abuja</h3>
         <p>Capital city • Modern housing</p>
       </div>
     </a>
 
-    <a href="listings.html" class="city-card city-lagos">
+    <a href="listings.html?state=Lagos" class="city-card city-lagos">
       <div class="city-overlay">
         <h3>Lagos</h3>
         <p>Top student city • High demand</p>
       </div>
     </a>
 
-    <a href="listings.html" class="city-card city-port">
+    <a href="listings.html?state=Rivers" class="city-card city-port">
       <div class="city-overlay">
         <h3>Port Harcourt</h3>
         <p>Affordable student housing</p>
       </div>
     </a>
 
-    <a href="listings.html" class="city-card city-enugu">
+    <a href="listings.html?state=Enugu" class="city-card city-enugu">
       <div class="city-overlay">
         <h3>Enugu</h3>
         <p>Calm student environment</p>
       </div>
     </a>
 
-    <a href="listings.html" class="city-card city-kano">
+    <a href="listings.html?state=Kano" class="city-card city-kano">
       <div class="city-overlay">
         <h3>Kano</h3>
         <p>Growing student hub</p>
@@ -143,35 +143,44 @@
 
   <div class="container property-grid">
 
-    <a href="property.html?id=1" class="property-card">
-      <div class="property-img img-one"></div>
-      <div class="property-content">
-        <span class="badge verified">Verified</span>
-        <h3>Premium Shared Apartment</h3>
-        <p>Lagos • Yaba • Near UNILAG</p>
-        <strong>₦280,000 / year</strong>
-      </div>
-    </a>
+    <div class="property-card-wrap">
+      <button class="save-property-btn" data-save-id="1" type="button">♡</button>
+      <a href="property.html?id=1" class="property-card">
+        <div class="property-img img-one"></div>
+        <div class="property-content">
+          <span class="badge verified">Verified</span>
+          <h3>Premium Shared Apartment</h3>
+          <p>Lagos • Yaba • Near UNILAG</p>
+          <strong>₦280,000 / year</strong>
+        </div>
+      </a>
+    </div>
 
-    <a href="property.html?id=2" class="property-card">
-      <div class="property-img img-two"></div>
-      <div class="property-content">
-        <span class="badge featured">Featured</span>
-        <h3>Private Student Studio</h3>
-        <p>Abuja • Gwarinpa • Near University of Abuja</p>
-        <strong>₦450,000 / year</strong>
-      </div>
-    </a>
+    <div class="property-card-wrap">
+      <button class="save-property-btn" data-save-id="2" type="button">♡</button>
+      <a href="property.html?id=2" class="property-card">
+        <div class="property-img img-two"></div>
+        <div class="property-content">
+          <span class="badge featured">Featured</span>
+          <h3>Private Student Studio</h3>
+          <p>Abuja • Gwarinpa • Near University of Abuja</p>
+          <strong>₦450,000 / year</strong>
+        </div>
+      </a>
+    </div>
 
-    <a href="property.html?id=3" class="property-card">
-      <div class="property-img img-three"></div>
-      <div class="property-content">
-        <span class="badge verified">Verified</span>
-        <h3>Affordable Student Hostel</h3>
-        <p>Enugu • Near UNEC</p>
-        <strong>₦180,000 / year</strong>
-      </div>
-    </a>
+    <div class="property-card-wrap">
+      <button class="save-property-btn" data-save-id="3" type="button">♡</button>
+      <a href="property.html?id=3" class="property-card">
+        <div class="property-img img-three"></div>
+        <div class="property-content">
+          <span class="badge verified">Verified</span>
+          <h3>Affordable Student Hostel</h3>
+          <p>Enugu • Near UNEC</p>
+          <strong>₦180,000 / year</strong>
+        </div>
+      </a>
+    </div>
 
   </div>
 </section>

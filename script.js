@@ -1,4 +1,4 @@
-const businessWhatsappNumber = "447709721192"; // Admin WhatsApp: 447709721192
+const businessWhatsappNumber = "447709721192"; // Admin WhatsApp: +44 7709 721192
 
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
@@ -36,6 +36,11 @@ const properties = [
       "✔ Close to UNILAG",
       "✔ Kitchen access",
       "✔ Water and electricity access"
+    ],
+    gallery: [
+      "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1600&q=80",
+      "images/room1.jpg",
+      "images/room2.jpg"
     ]
   },
   {
@@ -60,6 +65,11 @@ const properties = [
       "✔ Near University of Abuja",
       "✔ Clean bathroom access",
       "✔ Suitable for focused study"
+    ],
+    gallery: [
+      "images/room1.jpg",
+      "images/room2.jpg",
+      "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80"
     ]
   },
   {
@@ -84,6 +94,11 @@ const properties = [
       "✔ Close to UNEC",
       "✔ Water access",
       "✔ Shared facilities"
+    ],
+    gallery: [
+      "images/room2.jpg",
+      "images/room1.jpg",
+      "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=80"
     ]
   },
   {
@@ -108,6 +123,11 @@ const properties = [
       "✔ Close to university",
       "✔ Student environment",
       "✔ Affordable rent"
+    ],
+    gallery: [
+      "https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1600&q=80",
+      "images/room1.jpg",
+      "images/room2.jpg"
     ]
   },
   {
@@ -132,6 +152,11 @@ const properties = [
       "✔ Quiet environment",
       "✔ Student-friendly space",
       "✔ Affordable yearly rent"
+    ],
+    gallery: [
+      "https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1600&q=80",
+      "images/room2.jpg",
+      "images/room1.jpg"
     ]
   },
   {
@@ -156,6 +181,11 @@ const properties = [
       "✔ Premium Lagos location",
       "✔ Kitchen access",
       "✔ Comfortable study space"
+    ],
+    gallery: [
+      "https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=1600&q=80",
+      "images/room1.jpg",
+      "images/room2.jpg"
     ]
   }
 ];
@@ -175,6 +205,30 @@ function formatWhatsappMessage(property) {
     `Price: ${property.priceText}\n\n` +
     `Please confirm availability.`
   );
+}
+
+/* =========================
+   HERO SEARCH
+========================= */
+
+const heroSearchBtn = document.getElementById("heroSearchBtn");
+
+if (heroSearchBtn) {
+  heroSearchBtn.addEventListener("click", () => {
+    const q = document.getElementById("heroSearchInput")?.value || "";
+    const state = document.getElementById("heroStateFilter")?.value || "";
+    const type = document.getElementById("heroTypeFilter")?.value || "";
+    const budget = document.getElementById("heroBudgetFilter")?.value || "";
+
+    const params = new URLSearchParams();
+
+    if (q.trim()) params.set("q", q.trim());
+    if (state) params.set("state", state);
+    if (type) params.set("type", type);
+    if (budget) params.set("budget", budget);
+
+    window.location.href = `listings.html?${params.toString()}`;
+  });
 }
 
 /* =========================
@@ -202,6 +256,22 @@ function matchesBudget(price, budgetValue) {
   if (budget === 800001) return price > 800000;
 
   return true;
+}
+
+function applyQueryFilters() {
+  if (!searchInput && !stateFilter && !typeFilter && !budgetFilter) return;
+
+  const params = new URLSearchParams(window.location.search);
+
+  const q = params.get("q");
+  const state = params.get("state");
+  const type = params.get("type");
+  const budget = params.get("budget");
+
+  if (q && searchInput) searchInput.value = q;
+  if (state && stateFilter) stateFilter.value = state;
+  if (type && typeFilter) typeFilter.value = type;
+  if (budget && budgetFilter) budgetFilter.value = budget;
 }
 
 function filterListings() {
@@ -232,7 +302,12 @@ function filterListings() {
 
     const isVisible = searchMatch && stateMatch && typeMatch && budgetMatch;
 
-    card.style.display = isVisible ? "" : "none";
+    const wrap = card.closest(".property-card-wrap");
+    if (wrap) {
+      wrap.style.display = isVisible ? "" : "none";
+    } else {
+      card.style.display = isVisible ? "" : "none";
+    }
 
     if (isVisible) visibleCount += 1;
   });
@@ -281,6 +356,7 @@ function resetListingFilters() {
   if (typeFilter) typeFilter.value = "";
   if (budgetFilter) budgetFilter.value = "";
 
+  window.history.replaceState({}, document.title, "listings.html");
   filterListings();
 }
 
@@ -290,11 +366,93 @@ if (typeFilter) typeFilter.addEventListener("change", filterListings);
 if (budgetFilter) budgetFilter.addEventListener("change", filterListings);
 if (resetFilters) resetFilters.addEventListener("click", resetListingFilters);
 
+applyQueryFilters();
 filterListings();
+
+/* =========================
+   SAVE PROPERTY FEATURE
+========================= */
+
+function getSavedProperties() {
+  return JSON.parse(localStorage.getItem("savedProperties")) || [];
+}
+
+function setSavedProperties(ids) {
+  localStorage.setItem("savedProperties", JSON.stringify(ids));
+}
+
+function isPropertySaved(id) {
+  return getSavedProperties().includes(id);
+}
+
+function toggleSavedProperty(id) {
+  let saved = getSavedProperties();
+
+  if (saved.includes(id)) {
+    saved = saved.filter((item) => item !== id);
+  } else {
+    saved.push(id);
+  }
+
+  setSavedProperties(saved);
+  updateSaveButtons();
+}
+
+function updateSaveButtons() {
+  const saved = getSavedProperties();
+
+  document.querySelectorAll(".save-property-btn").forEach((btn) => {
+    const id = btn.dataset.saveId;
+
+    if (saved.includes(id)) {
+      btn.classList.add("saved");
+      btn.textContent = "♥";
+    } else {
+      btn.classList.remove("saved");
+      btn.textContent = "♡";
+    }
+  });
+
+  const detailBtn = document.getElementById("savePropertyDetailBtn");
+
+  if (detailBtn) {
+    const property = getPropertyById();
+
+    if (saved.includes(property.id)) {
+      detailBtn.classList.add("saved");
+      detailBtn.textContent = "♥ Saved Property";
+    } else {
+      detailBtn.classList.remove("saved");
+      detailBtn.textContent = "♡ Save Property";
+    }
+  }
+}
+
+document.querySelectorAll(".save-property-btn").forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    toggleSavedProperty(btn.dataset.saveId);
+  });
+});
+
+const savePropertyDetailBtn = document.getElementById("savePropertyDetailBtn");
+
+if (savePropertyDetailBtn) {
+  savePropertyDetailBtn.addEventListener("click", () => {
+    const property = getPropertyById();
+    toggleSavedProperty(property.id);
+  });
+}
+
+updateSaveButtons();
 
 /* =========================
    DYNAMIC PROPERTY PAGE
 ========================= */
+
+let activePropertyGallery = [];
+let activeGalleryIndex = 0;
 
 function loadPropertyPage() {
   const propertyTitle = document.getElementById("propertyTitle");
@@ -312,6 +470,9 @@ function loadPropertyPage() {
   const propertyTypeText = document.getElementById("propertyTypeText");
   const bookingLink = document.getElementById("bookingLink");
   const whatsappLink = document.getElementById("whatsappLink");
+  const requestViewingBtn = document.getElementById("requestViewingBtn");
+
+  activePropertyGallery = property.gallery || [];
 
   document.title = `${property.title} | Afro Student Living`;
 
@@ -328,7 +489,7 @@ function loadPropertyPage() {
   }
 
   if (propertyBadge) {
-    propertyBadge.className = `badge ${property.badgeClass}`;
+    propertyBadge.className = `badge ${property.badgeClass} animated-hero-text`;
     propertyBadge.textContent = property.badge;
   }
 
@@ -343,9 +504,102 @@ function loadPropertyPage() {
   if (whatsappLink) {
     whatsappLink.href = `https://wa.me/${businessWhatsappNumber}?text=${formatWhatsappMessage(property)}`;
   }
+
+  if (requestViewingBtn) {
+    requestViewingBtn.addEventListener("click", () => {
+      const text = encodeURIComponent(
+        `Hello Afro Student Living,\n\n` +
+        `I would like to request a viewing for this property:\n\n` +
+        `Property: ${property.title}\n` +
+        `Location: ${property.location}\n` +
+        `Price: ${property.priceText}\n\n` +
+        `Please confirm available viewing dates and times.`
+      );
+
+      window.open(`https://wa.me/${businessWhatsappNumber}?text=${text}`, "_blank");
+    });
+  }
+
+  updateSaveButtons();
 }
 
 loadPropertyPage();
+
+/* =========================
+   AIRBNB STYLE GALLERY
+========================= */
+
+const galleryModal = document.getElementById("galleryModal");
+const galleryModalImage = document.getElementById("galleryModalImage");
+const galleryCounter = document.getElementById("galleryCounter");
+const openGalleryBtn = document.getElementById("openGalleryBtn");
+const closeGalleryBtn = document.getElementById("closeGalleryBtn");
+const prevGalleryBtn = document.getElementById("prevGalleryBtn");
+const nextGalleryBtn = document.getElementById("nextGalleryBtn");
+
+function renderGalleryModal() {
+  if (!galleryModalImage || !galleryCounter || !activePropertyGallery.length) return;
+
+  galleryModalImage.src = activePropertyGallery[activeGalleryIndex];
+  galleryCounter.textContent = `${activeGalleryIndex + 1} / ${activePropertyGallery.length}`;
+}
+
+function openGallery(index = 0) {
+  if (!galleryModal || !activePropertyGallery.length) return;
+
+  activeGalleryIndex = index;
+  renderGalleryModal();
+  galleryModal.classList.add("active");
+  document.body.style.overflow = "hidden";
+}
+
+function closeGallery() {
+  if (!galleryModal) return;
+
+  galleryModal.classList.remove("active");
+  document.body.style.overflow = "";
+}
+
+function nextGallery() {
+  if (!activePropertyGallery.length) return;
+
+  activeGalleryIndex = (activeGalleryIndex + 1) % activePropertyGallery.length;
+  renderGalleryModal();
+}
+
+function prevGallery() {
+  if (!activePropertyGallery.length) return;
+
+  activeGalleryIndex =
+    (activeGalleryIndex - 1 + activePropertyGallery.length) % activePropertyGallery.length;
+  renderGalleryModal();
+}
+
+if (openGalleryBtn) openGalleryBtn.addEventListener("click", () => openGallery(0));
+if (closeGalleryBtn) closeGalleryBtn.addEventListener("click", closeGallery);
+if (nextGalleryBtn) nextGalleryBtn.addEventListener("click", nextGallery);
+if (prevGalleryBtn) prevGalleryBtn.addEventListener("click", prevGallery);
+
+document.querySelectorAll("[data-gallery-index]").forEach((item) => {
+  item.addEventListener("click", () => {
+    const index = Number(item.dataset.galleryIndex || 0);
+    openGallery(index);
+  });
+});
+
+if (galleryModal) {
+  galleryModal.addEventListener("click", (e) => {
+    if (e.target === galleryModal) closeGallery();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (!galleryModal || !galleryModal.classList.contains("active")) return;
+
+  if (e.key === "Escape") closeGallery();
+  if (e.key === "ArrowRight") nextGallery();
+  if (e.key === "ArrowLeft") prevGallery();
+});
 
 /* =========================
    DYNAMIC BOOKING PAGE

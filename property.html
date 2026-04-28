@@ -67,15 +67,15 @@
       </div>
     </div>
 
-    <div class="premium-gallery">
-      <div id="propertyImage" class="gallery-main img-two"></div>
+    <div class="premium-gallery" id="propertyGallery">
+      <div id="propertyImage" class="gallery-main img-two" data-gallery-index="0"></div>
 
       <div class="gallery-side">
-        <img src="images/room1.jpg" alt="Student room bedroom">
-        <img src="images/room2.jpg" alt="Student accommodation bedroom">
+        <img src="images/room1.jpg" alt="Student room bedroom" data-gallery-index="1">
+        <img src="images/room2.jpg" alt="Student accommodation bedroom" data-gallery-index="2">
       </div>
 
-      <button class="gallery-btn" type="button">View photos</button>
+      <button class="gallery-btn" id="openGalleryBtn" type="button">View photos</button>
     </div>
 
     <div class="detail-grid premium-detail-grid">
@@ -125,6 +125,8 @@
       </div>
 
       <aside class="inquiry-card premium-booking-card">
+        <button id="savePropertyDetailBtn" class="save-detail-btn" type="button">♡ Save Property</button>
+
         <h3>Reserve this student accommodation</h3>
         <p>Submit a booking request and the admin will confirm availability.</p>
 
@@ -136,6 +138,10 @@
         <a id="bookingLink" href="booking-request.html?id=2" class="btn btn-accent full-btn">
           Request Booking
         </a>
+
+        <button id="requestViewingBtn" type="button" class="btn btn-primary full-btn">
+          Request Viewing
+        </button>
 
         <a
           id="whatsappLink"
@@ -159,6 +165,18 @@
     </div>
   </div>
 </section>
+
+<div id="galleryModal" class="gallery-modal">
+  <button id="closeGalleryBtn" class="gallery-close" type="button">×</button>
+  <button id="prevGalleryBtn" class="gallery-nav gallery-prev" type="button">‹</button>
+
+  <div class="gallery-modal-content">
+    <img id="galleryModalImage" src="images/room1.jpg" alt="Property gallery image">
+    <p id="galleryCounter">1 / 3</p>
+  </div>
+
+  <button id="nextGalleryBtn" class="gallery-nav gallery-next" type="button">›</button>
+</div>
 
 </main>
 
