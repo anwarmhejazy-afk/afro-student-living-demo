@@ -1657,3 +1657,122 @@ html {
     height: 70px;
   }
 }
+
+/* PREMIUM HERO COPY + TRUST BADGES */
+
+.hero-proof-line {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin: 18px 0 18px;
+}
+
+.hero-proof-line span {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(15, 23, 42, 0.46);
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.16);
+  backdrop-filter: blur(14px);
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 900;
+}
+
+.hero-trust-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 26px;
+}
+
+.hero-trust-badges span {
+  display: inline-flex;
+  align-items: center;
+  background: rgba(255,255,255,0.14);
+  color: rgba(255,255,255,0.94);
+  border: 1px solid rgba(255,255,255,0.18);
+  backdrop-filter: blur(14px);
+  padding: 9px 13px;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 800;
+}
+
+.property-proof-line span {
+  background: #EEF4FF;
+  color: var(--primary);
+  border: 1px solid var(--border-soft);
+}
+
+.property-trust-badges span {
+  background: #fff;
+  color: var(--text-muted);
+  border: 1px solid var(--border-soft);
+}
+
+.animated-hero-text,
+.animated-hero-title,
+.animated-hero-subtitle,
+.animated-hero-proof,
+.animated-hero-badges {
+  opacity: 0;
+  transform: translateY(22px);
+  animation: heroFadeUp 0.8s ease forwards;
+}
+
+.animated-hero-title {
+  animation-delay: 0.12s;
+}
+
+.animated-hero-subtitle {
+  animation-delay: 0.24s;
+}
+
+.animated-hero-proof {
+  animation-delay: 0.36s;
+}
+
+.animated-hero-badges {
+  animation-delay: 0.48s;
+}
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-search-panel,
+.page-image-content .btn,
+.hero-content-wide .btn {
+  animation: heroSoftAppear 0.9s ease forwards;
+  animation-delay: 0.58s;
+}
+
+@keyframes heroSoftAppear {
+  from {
+    opacity: 0.75;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-proof-line,
+  .hero-trust-badges {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .hero-proof-line span,
+  .hero-trust-badges span {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}
