@@ -1,4 +1,4 @@
-const businessWhatsappNumber = "447709721192"; // Admin WhatsApp: +44 7709 721192
+const businessWhatsappNumber = "447709721192"; // Admin WhatsApp: 447709721192
 
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
