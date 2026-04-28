@@ -1,4 +1,4 @@
-const businessWhatsappNumber = "2340000000000"; // Replace with your friend's WhatsApp number
+const businessWhatsappNumber = "+44 7709 721192"; // Replace with your friend's WhatsApp number
 
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
