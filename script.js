@@ -1,4 +1,4 @@
-const businessWhatsappNumber = "+44 7709 721192"; // Replace with your friend's WhatsApp number
+const businessWhatsappNumber = "447709721192"; // Admin WhatsApp: +44 7709 721192
 
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
@@ -473,7 +473,23 @@ if (submitPropertyForm) {
     submissions.push(submission);
     localStorage.setItem("propertySubmissions", JSON.stringify(submissions));
 
-    alert("Property submitted for admin review.");
+    const text = encodeURIComponent(
+      `New property submission for Afro Student Living:\n\n` +
+      `Property: ${submission.propertyName}\n` +
+      `State: ${submission.state}\n` +
+      `Type: ${submission.type}\n` +
+      `Price: ${submission.price}\n` +
+      `Area / University: ${submission.area}\n\n` +
+      `Owner Details:\n` +
+      `Name: ${submission.ownerName}\n` +
+      `WhatsApp: ${submission.whatsapp}\n\n` +
+      `Description:\n${submission.description}\n\n` +
+      `Status: Pending Admin Review`
+    );
+
+    alert("Property submitted for admin review. WhatsApp will open with the submission details.");
+    window.open(`https://wa.me/${businessWhatsappNumber}?text=${text}`, "_blank");
+
     submitPropertyForm.reset();
     uploadedPropertyImages = [];
 
