@@ -120,18 +120,20 @@ function getPropertyById() {
   return properties.find((p) => p.id === id) || properties[0];
 }
 
-/* HERO SEARCH */
+/* HERO SEARCH → REDIRECT TO LISTINGS */
+
 const heroSearchBtn = document.getElementById("heroSearchBtn");
 
 if (heroSearchBtn) {
   heroSearchBtn.addEventListener("click", () => {
-    const q = document.getElementById("heroSearchInput")?.value || "";
+    const search = document.getElementById("heroSearchInput")?.value || "";
     const state = document.getElementById("heroStateFilter")?.value || "";
     const type = document.getElementById("heroTypeFilter")?.value || "";
     const budget = document.getElementById("heroBudgetFilter")?.value || "";
 
     const params = new URLSearchParams();
-    if (q.trim()) params.set("q", q.trim());
+
+    if (search.trim()) params.set("q", search.trim());
     if (state) params.set("state", state);
     if (type) params.set("type", type);
     if (budget) params.set("budget", budget);
@@ -164,10 +166,15 @@ function matchesBudget(price, budgetValue) {
 function applyQueryFilters() {
   const params = new URLSearchParams(window.location.search);
 
-  if (params.get("q") && searchInput) searchInput.value = params.get("q");
-  if (params.get("state") && stateFilter) stateFilter.value = params.get("state");
-  if (params.get("type") && typeFilter) typeFilter.value = params.get("type");
-  if (params.get("budget") && budgetFilter) budgetFilter.value = params.get("budget");
+  const q = params.get("q") || "";
+  const state = params.get("state") || "";
+  const type = params.get("type") || "";
+  const budget = params.get("budget") || "";
+
+  if (searchInput) searchInput.value = q;
+  if (stateFilter) stateFilter.value = state;
+  if (typeFilter) typeFilter.value = type;
+  if (budgetFilter) budgetFilter.value = budget;
 }
 
 function filterListings() {
