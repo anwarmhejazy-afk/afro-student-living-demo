@@ -330,29 +330,31 @@ function renderLiveListings(liveProperties) {
 
       return `
         <div class="property-card-wrap">
-          <article
-            class="property-card reveal"
-            data-state="${cleanText(property.state)}"
-            data-type="${cleanText(property.type)}"
-            data-price="${Number(property.price || 0)}"
-            data-keywords="${cleanText(keywords)}"
-          >
-            <div class="property-img ${cleanText(property.imageClass)}">
-              <button class="save-property-btn" data-save-id="${cleanText(property.id)}" aria-label="Save property">♡</button>
-              <span class="badge ${cleanText(property.badgeClass)}">${cleanText(property.badge)}</span>
-            </div>
+          <button class="save-property-btn" data-save-id="${cleanText(property.id)}" type="button">♡</button>
+
+          <a href="property.html?id=${encodeURIComponent(property.id)}"
+             class="property-card"
+             data-state="${cleanText(property.state)}"
+             data-type="${cleanText(property.type)}"
+             data-price="${Number(property.price || 0)}"
+             data-keywords="${cleanText(keywords)}">
+
+            <div class="property-img ${cleanText(property.imageClass)}"></div>
 
             <div class="property-content">
+              <span class="badge ${cleanText(property.badgeClass)}">${cleanText(property.badge)}</span>
               <h3>${cleanText(property.title)}</h3>
-              <p class="property-location">${cleanText(property.location)}</p>
-              <p class="property-type">${cleanText(property.type)}</p>
-              <p class="property-price">${cleanText(property.priceText)}</p>
+              <p>${cleanText(property.location)}</p>
 
-              <a href="property.html?id=${encodeURIComponent(property.id)}" class="btn btn-primary">
-                View Details
-              </a>
+              <ul class="mini-features">
+                <li>${cleanText(property.type)}</li>
+                <li>${cleanText(property.state)}</li>
+                <li>Approved</li>
+              </ul>
+
+              <strong>${cleanText(property.priceText)}</strong>
             </div>
-          </article>
+          </a>
         </div>
       `;
     })
@@ -360,7 +362,6 @@ function renderLiveListings(liveProperties) {
 
   updateSaveButtons();
   filterListings();
-  revealOnScroll();
 }
 
 async function loadLivePropertiesFromSupabase() {
