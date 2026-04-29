@@ -814,7 +814,8 @@ async function approveProperty(id) {
         university: data.university,
         type: data.type,
         price: data.price,
-        description: data.description
+        description: data.description,
+        submission_id: data.id
       }
     ]);
 
@@ -873,10 +874,7 @@ async function deletePropertySubmission(id) {
   const { error: deletePublishedError } = await db
     .from("properties")
     .delete()
-    .eq("title", data.title)
-    .eq("state", data.state)
-    .eq("city", data.city)
-    .eq("price", data.price);
+    .eq("submission_id", id);
 
   if (deletePublishedError) {
     console.warn("Submission deleted, but matching published property was not removed:", deletePublishedError);
