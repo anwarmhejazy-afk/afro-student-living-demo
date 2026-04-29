@@ -537,28 +537,36 @@ if (propertyImagesInput && imagePreview) {
 ========================= */
 const submitForm = document.getElementById("submitPropertyForm");
 
+function getSupabaseClientSafe() {
+  if (window.supabaseClient) return window.supabaseClient;
+  if (typeof supabaseClient !== "undefined") return supabaseClient;
+  return null;
+}
+
 if (submitForm) {
   submitForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    if (typeof supabaseClient === "undefined") {
+    const db = getSupabaseClientSafe();
+
+    if (!db) {
       alert("Supabase is not connected. Please check supabase.js is loaded before script.js.");
       return;
     }
 
-    const title = document.getElementById("propertyName")?.value || "";
-    const state = document.getElementById("propertyState")?.value || "";
-    const type = document.getElementById("propertyType")?.value || "";
-    const priceRaw = document.getElementById("propertyPrice")?.value || "";
-    const city = document.getElementById("propertyArea")?.value || "";
-    const university = document.getElementById("propertyArea")?.value || "";
-    const description = document.getElementById("propertyDescriptionInput")?.value || "";
-    const ownerName = document.getElementById("ownerName")?.value || "";
-    const ownerWhatsapp = document.getElementById("ownerWhatsapp")?.value || "";
+    const title = document.getElementById("propertyName")?.value.trim() || "";
+    const state = document.getElementById("propertyState")?.value.trim() || "";
+    const type = document.getElementById("propertyType")?.value.trim() || "";
+    const priceRaw = document.getElementById("propertyPrice")?.value.trim() || "";
+    const city = document.getElementById("propertyArea")?.value.trim() || "";
+    const university = document.getElementById("propertyArea")?.value.trim() || "";
+    const description = document.getElementById("propertyDescriptionInput")?.value.trim() || "";
+    const ownerName = document.getElementById("ownerName")?.value.trim() || "";
+    const ownerWhatsapp = document.getElementById("ownerWhatsapp")?.value.trim() || "";
 
     const priceNumber = Number(priceRaw.replace(/[^\d]/g, "")) || 0;
 
-    const { error } = await supabaseClient
+    const { error } = await db
       .from("property_submissions")
       .insert([
         {
@@ -570,14 +578,13 @@ if (submitForm) {
           type: type,
           description: description,
           owner_name: ownerName,
-          owner_whatsapp: ownerWhatsapp,
-          status: "pending"
+          owner_whatsapp: ownerWhatsapp
         }
       ]);
 
     if (error) {
       console.error("Supabase submit error:", error);
-      alert("Error submitting property. Check console for details.");
+      alert("Error submitting property. Check the console and your Supabase table columns.");
       return;
     }
 
@@ -595,40 +602,53 @@ const adminSubmissionsTable = document.getElementById("adminSubmissionsTable");
 const submissionCount = document.getElementById("submissionCount");
 const clearSubmissionsBtn = document.getElementById("clearSubmissionsBtn");
 
+function cleanText(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
 async function renderAdminSubmissions() {
   if (!adminSubmissionsTable) return;
 
-  if (typeof supabaseClient === "undefined") {
+  const db = getSupabaseClientSafe();
+
+  if (!db) {
     adminSubmissionsTable.innerHTML = `<tr><td colspan="8">Supabase is not connected.</td></tr>`;
     return;
   }
 
-  const { data, error } = await supabaseClient
+  const { data, error } = await db
     .from("property_submissions")
     .select("*")
     .order("created_at", { ascending: false });
 
   if (error) {
     console.error("Admin submissions error:", error);
-    adminSubmissionsTable.innerHTML = `<tr><td colspan="8">Could not load submissions.</td></tr>`;
+    adminSubmissionsTable.innerHTML = `<tr><td colspan="8">Could not load submissions. Check Supabase table name and columns.</td></tr>`;
     return;
   }
 
-  if (submissionCount) submissionCount.textContent = data.length;
+  const submissions = data || [];
 
-  adminSubmissionsTable.innerHTML = data.length
-    ? data
+  if (submissionCount) submissionCount.textContent = submissions.length;
+
+  adminSubmissionsTable.innerHTML = submissions.length
+    ? submissions
         .map((item) => {
           return `
             <tr>
               <td><span class="no-image">Pending</span></td>
-              <td><strong>${item.title || ""}</strong><br><small>${item.city || ""}</small></td>
-              <td>${item.state || ""}</td>
-              <td>${item.type || ""}</td>
+              <td><strong>${cleanText(item.title)}</strong><br><small>${cleanText(item.city)}</small></td>
+              <td>${cleanText(item.state)}</td>
+              <td>${cleanText(item.type)}</td>
               <td>₦${Number(item.price || 0).toLocaleString()}</td>
-              <td>${item.owner_name || ""}</td>
-              <td>${item.owner_whatsapp || ""}</td>
-              <td><span class="table-badge pending">${item.status || "pending"}</span></td>
+              <td>${cleanText(item.owner_name)}</td>
+              <td>${cleanText(item.owner_whatsapp)}</td>
+              <td><span class="table-badge pending">${cleanText(item.status || "pending")}</span></td>
             </tr>
           `;
         })
@@ -640,10 +660,9 @@ renderAdminSubmissions();
 
 if (clearSubmissionsBtn) {
   clearSubmissionsBtn.addEventListener("click", () => {
-    alert("Submissions are now stored in Supabase. Delete rows from Supabase Table Editor if needed.");
+    alert("Submissions are stored in Supabase. Delete rows from Supabase Table Editor if needed.");
   });
 }
-
 /* =========================
    REVEAL ANIMATION
 ========================= */
