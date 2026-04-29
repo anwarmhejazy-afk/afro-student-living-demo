@@ -1,5 +1,8 @@
 const businessWhatsappNumber = "447709721192";
 
+/* =========================
+   MOBILE MENU
+========================= */
 const menuBtn = document.getElementById("menuBtn");
 const navLinks = document.getElementById("navLinks");
 
@@ -9,6 +12,9 @@ if (menuBtn && navLinks) {
   });
 }
 
+/* =========================
+   STATIC PROPERTY DATA
+========================= */
 const properties = [
   {
     id: "1",
@@ -120,8 +126,9 @@ function getPropertyById() {
   return properties.find((p) => p.id === id) || properties[0];
 }
 
-/* HERO SEARCH → REDIRECT TO LISTINGS */
-
+/* =========================
+   HERO SEARCH
+========================= */
 const heroSearchBtn = document.getElementById("heroSearchBtn");
 
 if (heroSearchBtn) {
@@ -142,7 +149,9 @@ if (heroSearchBtn) {
   });
 }
 
-/* LISTINGS FILTER */
+/* =========================
+   LISTINGS FILTER
+========================= */
 const searchInput = document.getElementById("searchInput");
 const stateFilter = document.getElementById("stateFilter");
 const typeFilter = document.getElementById("typeFilter");
@@ -155,11 +164,14 @@ const noResults = document.getElementById("noResults");
 
 function matchesBudget(price, budgetValue) {
   if (!budgetValue) return true;
+
   const budget = Number(budgetValue);
+
   if (budget === 150000) return price < 150000;
   if (budget === 400000) return price >= 150000 && price <= 400000;
   if (budget === 800000) return price > 400000 && price <= 800000;
   if (budget === 800001) return price > 800000;
+
   return true;
 }
 
@@ -233,6 +245,7 @@ function resetListingFilters() {
   if (stateFilter) stateFilter.value = "";
   if (typeFilter) typeFilter.value = "";
   if (budgetFilter) budgetFilter.value = "";
+
   window.history.replaceState({}, document.title, "listings.html");
   filterListings();
 }
@@ -246,7 +259,9 @@ if (resetFilters) resetFilters.addEventListener("click", resetListingFilters);
 applyQueryFilters();
 filterListings();
 
-/* SAVE PROPERTY */
+/* =========================
+   SAVE PROPERTY
+========================= */
 function getSavedProperties() {
   return JSON.parse(localStorage.getItem("savedProperties")) || [];
 }
@@ -281,6 +296,7 @@ function updateSaveButtons() {
   });
 
   const detailBtn = document.getElementById("savePropertyDetailBtn");
+
   if (detailBtn) {
     const property = getPropertyById();
 
@@ -312,7 +328,9 @@ if (savePropertyDetailBtn) {
 
 updateSaveButtons();
 
-/* PROPERTY PAGE */
+/* =========================
+   PROPERTY PAGE
+========================= */
 let activePropertyGallery = [];
 let activeGalleryIndex = 0;
 
@@ -321,7 +339,6 @@ function loadPropertyPage() {
   if (!propertyTitle) return;
 
   const property = getPropertyById();
-
   activePropertyGallery = property.gallery || [];
 
   document.title = `${property.title} | Afro Student Living`;
@@ -356,12 +373,15 @@ function loadPropertyPage() {
     propertyFeatures.innerHTML = property.features.map((f) => `<li>${f}</li>`).join("");
   }
 
-  if (bookingLink) bookingLink.href = `booking-request.html?id=${property.id}`;
+  if (bookingLink) {
+    bookingLink.href = `booking-request.html?id=${property.id}`;
+  }
 
   if (whatsappLink) {
     const msg = encodeURIComponent(
       `Hello Afro Student Living,\n\nI'm interested in this property:\n\nProperty: ${property.title}\nLocation: ${property.location}\nPrice: ${property.priceText}\n\nPlease confirm availability.`
     );
+
     whatsappLink.href = `https://wa.me/${businessWhatsappNumber}?text=${msg}`;
   }
 
@@ -370,6 +390,7 @@ function loadPropertyPage() {
       const text = encodeURIComponent(
         `Hello Afro Student Living,\n\nI would like to request a viewing for this property:\n\nProperty: ${property.title}\nLocation: ${property.location}\nPrice: ${property.priceText}\n\nPlease confirm available viewing dates and times.`
       );
+
       window.open(`https://wa.me/${businessWhatsappNumber}?text=${text}`, "_blank");
     });
   }
@@ -379,7 +400,9 @@ function loadPropertyPage() {
 
 loadPropertyPage();
 
-/* GALLERY */
+/* =========================
+   GALLERY
+========================= */
 const galleryModal = document.getElementById("galleryModal");
 const galleryModalImage = document.getElementById("galleryModalImage");
 const galleryCounter = document.getElementById("galleryCounter");
@@ -390,12 +413,14 @@ const nextGalleryBtn = document.getElementById("nextGalleryBtn");
 
 function renderGalleryModal() {
   if (!galleryModalImage || !galleryCounter || !activePropertyGallery.length) return;
+
   galleryModalImage.src = activePropertyGallery[activeGalleryIndex];
   galleryCounter.textContent = `${activeGalleryIndex + 1} / ${activePropertyGallery.length}`;
 }
 
 function openGallery(index = 0) {
   if (!galleryModal || !activePropertyGallery.length) return;
+
   activeGalleryIndex = index;
   renderGalleryModal();
   galleryModal.classList.add("active");
@@ -404,6 +429,7 @@ function openGallery(index = 0) {
 
 function closeGallery() {
   if (!galleryModal) return;
+
   galleryModal.classList.remove("active");
   document.body.style.overflow = "";
 }
@@ -414,7 +440,9 @@ function nextGallery() {
 }
 
 function prevGallery() {
-  activeGalleryIndex = (activeGalleryIndex - 1 + activePropertyGallery.length) % activePropertyGallery.length;
+  activeGalleryIndex =
+    (activeGalleryIndex - 1 + activePropertyGallery.length) % activePropertyGallery.length;
+
   renderGalleryModal();
 }
 
@@ -424,10 +452,14 @@ if (nextGalleryBtn) nextGalleryBtn.addEventListener("click", nextGallery);
 if (prevGalleryBtn) prevGalleryBtn.addEventListener("click", prevGallery);
 
 document.querySelectorAll("[data-gallery-index]").forEach((item) => {
-  item.addEventListener("click", () => openGallery(Number(item.dataset.galleryIndex || 0)));
+  item.addEventListener("click", () => {
+    openGallery(Number(item.dataset.galleryIndex || 0));
+  });
 });
 
-/* BOOKING PAGE */
+/* =========================
+   BOOKING PAGE
+========================= */
 function loadBookingPage() {
   const bookingPropertyTitle = document.getElementById("bookingPropertyTitle");
   if (!bookingPropertyTitle) return;
@@ -444,7 +476,10 @@ function loadBookingPage() {
   if (bookingPropertyLocation) bookingPropertyLocation.textContent = property.location;
   if (bookingPropertyPrice) bookingPropertyPrice.textContent = property.priceText;
   if (bookingPropertyImage) bookingPropertyImage.className = `property-img ${property.imageClass} summary-img`;
-  if (bookingMessage) bookingMessage.value = `Hello, I would like to request booking for ${property.title} in ${property.location}.`;
+
+  if (bookingMessage) {
+    bookingMessage.value = `Hello, I would like to request booking for ${property.title} in ${property.location}.`;
+  }
 }
 
 loadBookingPage();
@@ -470,100 +505,134 @@ if (bookingWhatsappBtn) {
   });
 }
 
-/* SUBMIT PROPERTY LOCAL PREVIEW */
+/* =========================
+   IMAGE PREVIEW
+========================= */
 const propertyImagesInput = document.getElementById("propertyImages");
 const imagePreview = document.getElementById("imagePreview");
-let uploadedPropertyImages = [];
 
 if (propertyImagesInput && imagePreview) {
   propertyImagesInput.addEventListener("change", () => {
-    uploadedPropertyImages = [];
     imagePreview.innerHTML = "";
 
-    Array.from(propertyImagesInput.files).slice(0, 6).forEach((file) => {
-      const reader = new FileReader();
+    Array.from(propertyImagesInput.files)
+      .slice(0, 6)
+      .forEach((file) => {
+        const reader = new FileReader();
 
-      reader.onload = (e) => {
-        uploadedPropertyImages.push(e.target.result);
-        const img = document.createElement("img");
-        img.src = e.target.result;
-        img.alt = "Uploaded property preview";
-        imagePreview.appendChild(img);
-      };
+        reader.onload = (e) => {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.alt = "Uploaded property preview";
+          imagePreview.appendChild(img);
+        };
 
-      reader.readAsDataURL(file);
-    });
+        reader.readAsDataURL(file);
+      });
   });
 }
 
-const submitPropertyForm = document.getElementById("submitPropertyForm");
+/* =========================
+   SUBMIT PROPERTY → SUPABASE
+========================= */
+const submitForm = document.getElementById("submitPropertyForm");
 
-if (submitPropertyForm) {
-  submitPropertyForm.addEventListener("submit", (e) => {
+if (submitForm) {
+  submitForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const submission = {
-      id: Date.now(),
-      propertyName: document.getElementById("propertyName")?.value || "",
-      state: document.getElementById("propertyState")?.value || "",
-      type: document.getElementById("propertyType")?.value || "",
-      price: document.getElementById("propertyPrice")?.value || "",
-      ownerName: document.getElementById("ownerName")?.value || "",
-      whatsapp: document.getElementById("ownerWhatsapp")?.value || "",
-      area: document.getElementById("propertyArea")?.value || "",
-      description: document.getElementById("propertyDescriptionInput")?.value || "",
-      images: uploadedPropertyImages,
-      status: "Pending Review"
-    };
+    if (typeof supabaseClient === "undefined") {
+      alert("Supabase is not connected. Please check supabase.js is loaded before script.js.");
+      return;
+    }
 
-    const submissions = JSON.parse(localStorage.getItem("propertySubmissions")) || [];
-    submissions.push(submission);
-    localStorage.setItem("propertySubmissions", JSON.stringify(submissions));
+    const title = document.getElementById("propertyName")?.value || "";
+    const state = document.getElementById("propertyState")?.value || "";
+    const type = document.getElementById("propertyType")?.value || "";
+    const priceRaw = document.getElementById("propertyPrice")?.value || "";
+    const city = document.getElementById("propertyArea")?.value || "";
+    const university = document.getElementById("propertyArea")?.value || "";
+    const description = document.getElementById("propertyDescriptionInput")?.value || "";
+    const ownerName = document.getElementById("ownerName")?.value || "";
+    const ownerWhatsapp = document.getElementById("ownerWhatsapp")?.value || "";
 
-    const text = encodeURIComponent(
-      `New property submission for Afro Student Living:\n\nProperty: ${submission.propertyName}\nState: ${submission.state}\nType: ${submission.type}\nPrice: ${submission.price}\nArea / University: ${submission.area}\n\nOwner Details:\nName: ${submission.ownerName}\nWhatsApp: ${submission.whatsapp}\n\nDescription:\n${submission.description}\n\nStatus: Pending Admin Review`
-    );
+    const priceNumber = Number(priceRaw.replace(/[^\d]/g, "")) || 0;
 
-    alert("Property submitted for admin review. WhatsApp will open with the submission details.");
-    window.open(`https://wa.me/${businessWhatsappNumber}?text=${text}`, "_blank");
+    const { error } = await supabaseClient
+      .from("property_submissions")
+      .insert([
+        {
+          title: title,
+          state: state,
+          city: city,
+          university: university,
+          price: priceNumber,
+          type: type,
+          description: description,
+          owner_name: ownerName,
+          owner_whatsapp: ownerWhatsapp,
+          status: "pending"
+        }
+      ]);
 
-    submitPropertyForm.reset();
-    uploadedPropertyImages = [];
+    if (error) {
+      console.error("Supabase submit error:", error);
+      alert("Error submitting property. Check console for details.");
+      return;
+    }
+
+    alert("Property submitted successfully. Waiting for admin approval.");
+    submitForm.reset();
+
     if (imagePreview) imagePreview.innerHTML = "";
   });
 }
 
-/* ADMIN DASHBOARD */
+/* =========================
+   ADMIN DASHBOARD
+========================= */
 const adminSubmissionsTable = document.getElementById("adminSubmissionsTable");
 const submissionCount = document.getElementById("submissionCount");
 const clearSubmissionsBtn = document.getElementById("clearSubmissionsBtn");
 
-function renderAdminSubmissions() {
+async function renderAdminSubmissions() {
   if (!adminSubmissionsTable) return;
 
-  const submissions = JSON.parse(localStorage.getItem("propertySubmissions")) || [];
-  if (submissionCount) submissionCount.textContent = submissions.length;
+  if (typeof supabaseClient === "undefined") {
+    adminSubmissionsTable.innerHTML = `<tr><td colspan="8">Supabase is not connected.</td></tr>`;
+    return;
+  }
 
-  adminSubmissionsTable.innerHTML = submissions.length
-    ? submissions.map((item) => {
-        const firstImage =
-          item.images && item.images.length
-            ? `<img src="${item.images[0]}" alt="Property" class="admin-thumb">`
-            : `<span class="no-image">No image</span>`;
+  const { data, error } = await supabaseClient
+    .from("property_submissions")
+    .select("*")
+    .order("created_at", { ascending: false });
 
-        return `
-          <tr>
-            <td>${firstImage}</td>
-            <td><strong>${item.propertyName}</strong><br><small>${item.area}</small></td>
-            <td>${item.state}</td>
-            <td>${item.type}</td>
-            <td>${item.price}</td>
-            <td>${item.ownerName}</td>
-            <td>${item.whatsapp}</td>
-            <td><span class="table-badge pending">${item.status}</span></td>
-          </tr>
-        `;
-      }).join("")
+  if (error) {
+    console.error("Admin submissions error:", error);
+    adminSubmissionsTable.innerHTML = `<tr><td colspan="8">Could not load submissions.</td></tr>`;
+    return;
+  }
+
+  if (submissionCount) submissionCount.textContent = data.length;
+
+  adminSubmissionsTable.innerHTML = data.length
+    ? data
+        .map((item) => {
+          return `
+            <tr>
+              <td><span class="no-image">Pending</span></td>
+              <td><strong>${item.title || ""}</strong><br><small>${item.city || ""}</small></td>
+              <td>${item.state || ""}</td>
+              <td>${item.type || ""}</td>
+              <td>₦${Number(item.price || 0).toLocaleString()}</td>
+              <td>${item.owner_name || ""}</td>
+              <td>${item.owner_whatsapp || ""}</td>
+              <td><span class="table-badge pending">${item.status || "pending"}</span></td>
+            </tr>
+          `;
+        })
+        .join("")
     : `<tr><td colspan="8">No property submissions yet.</td></tr>`;
 }
 
@@ -571,13 +640,13 @@ renderAdminSubmissions();
 
 if (clearSubmissionsBtn) {
   clearSubmissionsBtn.addEventListener("click", () => {
-    if (!confirm("Clear all preview property submissions?")) return;
-    localStorage.removeItem("propertySubmissions");
-    renderAdminSubmissions();
+    alert("Submissions are now stored in Supabase. Delete rows from Supabase Table Editor if needed.");
   });
 }
 
-/* REVEAL */
+/* =========================
+   REVEAL ANIMATION
+========================= */
 const reveals = document.querySelectorAll(".reveal");
 
 function revealOnScroll() {
@@ -594,55 +663,24 @@ window.addEventListener("scroll", revealOnScroll);
 window.addEventListener("load", revealOnScroll);
 revealOnScroll();
 
-/* SCROLL TO TOP */
+/* =========================
+   SCROLL TO TOP
+========================= */
 const scrollBtn = document.getElementById("scrollTopBtn");
 
 if (scrollBtn) {
   window.addEventListener("scroll", () => {
-    if (window.scrollY > 150) scrollBtn.classList.add("show");
-    else scrollBtn.classList.remove("show");
+    if (window.scrollY > 150) {
+      scrollBtn.classList.add("show");
+    } else {
+      scrollBtn.classList.remove("show");
+    }
   });
 
   scrollBtn.addEventListener("click", () => {
-    window.scrollTo({ top: 0, behavior: "smooth" });
-  });
-}
-/* SUBMIT PROPERTY → SAVE TO SUPABASE */
-
-const submitForm = document.getElementById("submitPropertyForm");
-
-if (submitForm) {
-  submitForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const name = document.getElementById("propertyName").value;
-    const state = document.getElementById("propertyState").value;
-    const type = document.getElementById("propertyType").value;
-    const price = document.getElementById("propertyPrice").value;
-    const area = document.getElementById("propertyArea").value;
-    const description = document.getElementById("propertyDescriptionInput").value;
-
-    const { error } = await supabase
-      .from("property_submissions")
-      .insert([
-        {
-          name,
-          state,
-          type,
-          price,
-          area,
-          description,
-          status: "pending"
-        }
-      ]);
-
-    if (error) {
-      alert("Error submitting property");
-      console.error(error);
-      return;
-    }
-
-    alert("Property submitted successfully. Waiting for admin approval.");
-    submitForm.reset();
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
   });
 }
