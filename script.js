@@ -14,8 +14,9 @@ if (menuBtn && navLinks) {
 
 /* =========================
    STATIC PROPERTY DATA
+   Fallback data if Supabase is not available
 ========================= */
-const properties = [
+let properties = [
   {
     id: "1",
     title: "Premium Shared Apartment",
@@ -120,10 +121,50 @@ const properties = [
   }
 ];
 
+function getSupabaseClientSafe() {
+  if (window.supabaseClient) return window.supabaseClient;
+  if (typeof supabaseClient !== "undefined") return supabaseClient;
+  return null;
+}
+
+function cleanText(value) {
+  return String(value || "")
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+}
+
+function normalizeProperty(p, index = 0) {
+  const imageClasses = ["img-one", "img-two", "img-three", "img-four", "img-five", "img-six"];
+  const area = p.area || p.city || "";
+  const priceNumber = Number(p.price || 0);
+
+  return {
+    id: String(p.id),
+    title: p.title || "Student Accommodation",
+    state: p.state || "",
+    area: area,
+    city: p.city || area,
+    university: p.university || "",
+    type: p.type || "Apartment",
+    price: priceNumber,
+    priceText: `₦${priceNumber.toLocaleString()} / year`,
+    badge: p.badge || "Verified Property",
+    badgeClass: p.badgeClass || "verified",
+    imageClass: p.imageClass || imageClasses[index % imageClasses.length],
+    location: p.location || `${p.state || ""}${area ? " • " + area : ""}${p.university ? " • " + p.university : ""}`,
+    description: p.description || "Student accommodation submitted and approved by Afro Student Living admin.",
+    features: p.features || ["✔ Admin approved", "✔ Student-friendly location", "✔ Contact available", "✔ Suitable for students"],
+    gallery: p.gallery || ["images/room1.jpg", "images/room2.jpg"]
+  };
+}
+
 function getPropertyById() {
   const params = new URLSearchParams(window.location.search);
   const id = params.get("id") || "1";
-  return properties.find((p) => p.id === id) || properties[0];
+  return properties.find((p) => String(p.id) === String(id)) || properties[0];
 }
 
 /* =========================
@@ -157,10 +198,13 @@ const stateFilter = document.getElementById("stateFilter");
 const typeFilter = document.getElementById("typeFilter");
 const budgetFilter = document.getElementById("budgetFilter");
 const resetFilters = document.getElementById("resetFilters");
-const propertyCards = document.querySelectorAll(".property-card");
 const propertyCount = document.getElementById("propertyCount");
 const resultsText = document.getElementById("resultsText");
 const noResults = document.getElementById("noResults");
+
+function getPropertyCards() {
+  return document.querySelectorAll(".property-card");
+}
 
 function matchesBudget(price, budgetValue) {
   if (!budgetValue) return true;
@@ -190,6 +234,7 @@ function applyQueryFilters() {
 }
 
 function filterListings() {
+  const propertyCards = getPropertyCards();
   if (!propertyCards.length) return;
 
   const searchValue = searchInput ? searchInput.value.toLowerCase().trim() : "";
@@ -260,6 +305,100 @@ applyQueryFilters();
 filterListings();
 
 /* =========================
+   LIVE LISTINGS FROM SUPABASE
+========================= */
+function findListingsContainer() {
+  return (
+    document.getElementById("listingsContainer") ||
+    document.getElementById("propertiesGrid") ||
+    document.getElementById("listingsGrid") ||
+    document.querySelector("[data-live-listings]") ||
+    document.querySelector(".properties-grid") ||
+    document.querySelector(".listings-grid") ||
+    document.querySelector(".property-grid") ||
+    document.querySelector(".property-card-wrap")?.parentElement
+  );
+}
+
+function renderLiveListings(liveProperties) {
+  const container = findListingsContainer();
+  if (!container || !liveProperties.length) return;
+
+  container.innerHTML = liveProperties
+    .map((property) => {
+      const keywords = `${property.title} ${property.state} ${property.area} ${property.city} ${property.university} ${property.type}`.toLowerCase();
+
+      return `
+        <div class="property-card-wrap">
+          <article
+            class="property-card reveal"
+            data-state="${cleanText(property.state)}"
+            data-type="${cleanText(property.type)}"
+            data-price="${Number(property.price || 0)}"
+            data-keywords="${cleanText(keywords)}"
+          >
+            <div class="property-img ${cleanText(property.imageClass)}">
+              <button class="save-property-btn" data-save-id="${cleanText(property.id)}" aria-label="Save property">♡</button>
+              <span class="badge ${cleanText(property.badgeClass)}">${cleanText(property.badge)}</span>
+            </div>
+
+            <div class="property-content">
+              <h3>${cleanText(property.title)}</h3>
+              <p class="property-location">${cleanText(property.location)}</p>
+              <p class="property-type">${cleanText(property.type)}</p>
+              <p class="property-price">${cleanText(property.priceText)}</p>
+
+              <a href="property.html?id=${encodeURIComponent(property.id)}" class="btn btn-primary">
+                View Details
+              </a>
+            </div>
+          </article>
+        </div>
+      `;
+    })
+    .join("");
+
+  updateSaveButtons();
+  filterListings();
+  revealOnScroll();
+}
+
+async function loadLivePropertiesFromSupabase() {
+  const isListingsPage =
+    window.location.pathname.includes("listings") ||
+    !!findListingsContainer();
+
+  if (!isListingsPage) return;
+
+  const db = getSupabaseClientSafe();
+  if (!db) return;
+
+  const { data, error } = await db
+    .from("properties")
+    .select("*")
+    .order("created_at", { ascending: false });
+
+  if (error) {
+    console.error("Live listings error:", error);
+    return;
+  }
+
+  if (!data || !data.length) return;
+
+  const liveProperties = data.map((item, index) => normalizeProperty(item, index));
+
+  properties = liveProperties;
+
+  try {
+    localStorage.setItem("asl_live_properties", JSON.stringify(liveProperties));
+  } catch (error) {
+    console.warn("Could not cache live properties", error);
+  }
+
+  renderLiveListings(liveProperties);
+}
+
+/* =========================
    SAVE PROPERTY
 ========================= */
 function getSavedProperties() {
@@ -292,6 +431,15 @@ function updateSaveButtons() {
     } else {
       btn.classList.remove("saved");
       btn.textContent = "♡";
+    }
+
+    if (!btn.dataset.boundSave) {
+      btn.dataset.boundSave = "true";
+      btn.addEventListener("click", (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        toggleSavedProperty(btn.dataset.saveId);
+      });
     }
   });
 
@@ -370,7 +518,7 @@ function loadPropertyPage() {
   }
 
   if (propertyFeatures) {
-    propertyFeatures.innerHTML = property.features.map((f) => `<li>${f}</li>`).join("");
+    propertyFeatures.innerHTML = property.features.map((f) => `<li>${cleanText(f)}</li>`).join("");
   }
 
   if (bookingLink) {
@@ -397,8 +545,6 @@ function loadPropertyPage() {
 
   updateSaveButtons();
 }
-
-loadPropertyPage();
 
 /* =========================
    GALLERY
@@ -482,8 +628,6 @@ function loadBookingPage() {
   }
 }
 
-loadBookingPage();
-
 const bookingWhatsappBtn = document.getElementById("bookingWhatsappBtn");
 
 if (bookingWhatsappBtn) {
@@ -536,12 +680,6 @@ if (propertyImagesInput && imagePreview) {
    SUBMIT PROPERTY → SUPABASE
 ========================= */
 const submitForm = document.getElementById("submitPropertyForm");
-
-function getSupabaseClientSafe() {
-  if (window.supabaseClient) return window.supabaseClient;
-  if (typeof supabaseClient !== "undefined") return supabaseClient;
-  return null;
-}
 
 if (submitForm) {
   submitForm.addEventListener("submit", async (e) => {
@@ -602,15 +740,6 @@ const adminSubmissionsTable = document.getElementById("adminSubmissionsTable");
 const submissionCount = document.getElementById("submissionCount");
 const clearSubmissionsBtn = document.getElementById("clearSubmissionsBtn");
 
-function cleanText(value) {
-  return String(value || "")
-    .replaceAll("&", "&amp;")
-    .replaceAll("<", "&lt;")
-    .replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;")
-    .replaceAll("'", "&#039;");
-}
-
 async function renderAdminSubmissions() {
   if (!adminSubmissionsTable) return;
 
@@ -649,12 +778,12 @@ async function renderAdminSubmissions() {
               <td>${cleanText(item.owner_name)}</td>
               <td>${cleanText(item.owner_whatsapp)}</td>
               <td>
-  <span class="table-badge pending">${cleanText(item.status || "pending")}</span>
-  <br><br>
-  <button onclick="approveProperty('${item.id}')" class="btn btn-primary">
-    Approve
-  </button>
-</td>
+                <span class="table-badge pending">${cleanText(item.status || "pending")}</span>
+                <br><br>
+                <button onclick="approveProperty('${item.id}')" class="btn btn-primary">
+                  Approve
+                </button>
+              </td>
             </tr>
           `;
         })
@@ -760,3 +889,11 @@ if (scrollBtn) {
     });
   });
 }
+
+/* =========================
+   START LIVE DATA
+========================= */
+loadLivePropertiesFromSupabase().then(() => {
+  loadPropertyPage();
+  loadBookingPage();
+});
