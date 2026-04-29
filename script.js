@@ -665,7 +665,7 @@ async function renderAdminSubmissions() {
 renderAdminSubmissions();
 
 async function approveProperty(id) {
-  const db = window.supabaseClient;
+  const db = getSupabaseClientSafe();
 
   if (!db) {
     alert("Supabase not connected");
@@ -686,15 +686,17 @@ async function approveProperty(id) {
 
   const { error: insertError } = await db
     .from("properties")
-    .insert([{
-      title: data.title,
-      state: data.state,
-      city: data.city,
-      university: data.university,
-      type: data.type,
-      price: data.price,
-      description: data.description
-    }]);
+    .insert([
+      {
+        title: data.title,
+        state: data.state,
+        city: data.city,
+        university: data.university,
+        type: data.type,
+        price: data.price,
+        description: data.description
+      }
+    ]);
 
   if (insertError) {
     console.error(insertError);
@@ -717,6 +719,7 @@ if (clearSubmissionsBtn) {
     alert("Submissions are stored in Supabase. Delete rows from Supabase Table Editor if needed.");
   });
 }
+
 /* =========================
    REVEAL ANIMATION
 ========================= */
