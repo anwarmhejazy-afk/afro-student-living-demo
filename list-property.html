@@ -7,7 +7,6 @@
   <title>Submit Property | Afro Student Living</title>
 
   <link rel="stylesheet" href="style.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -76,10 +75,12 @@
           <strong>01</strong>
           <span>Owner submits property details and images</span>
         </div>
+
         <div>
           <strong>02</strong>
           <span>Admin checks price, location, quality, and safety</span>
         </div>
+
         <div>
           <strong>03</strong>
           <span>Approved listings can be added to the public site</span>
@@ -89,8 +90,8 @@
       <div class="property-note-box">
         <h3>Important</h3>
         <p>
-          Image upload is currently a preview feature using browser storage.
-          For a real live admin system, this should later connect to Supabase storage.
+          This page is currently connected to the frontend preview flow.
+          Full database approval can be added later through Supabase admin logic.
         </p>
       </div>
     </div>
@@ -98,6 +99,7 @@
     <form class="premium-form" id="submitPropertyForm">
       <span class="eyebrow">Property submission form</span>
       <h2>Submit accommodation details</h2>
+
       <p>
         Add the property details below. The admin can review submissions from the admin dashboard.
       </p>
@@ -174,11 +176,13 @@
       <button type="submit" class="btn btn-accent full-btn">Submit for Admin Review</button>
 
       <p class="small-note">
-        This is a preview system. Submissions are stored in this browser until a real database is connected.
+        Submission is sent to admin through WhatsApp and saved in browser preview for the admin dashboard.
       </p>
     </form>
+
   </div>
 </section>
+
 </main>
 
 <footer>
