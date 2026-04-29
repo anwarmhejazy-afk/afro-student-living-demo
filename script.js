@@ -14,7 +14,7 @@ if (menuBtn && navLinks) {
 
 /* =========================
    STATIC PROPERTY DATA
-   Fallback data if Supabase is not available
+   Used as fallback + for old property pages
 ========================= */
 let properties = [
   {
@@ -145,7 +145,7 @@ function normalizeProperty(p, index = 0) {
     id: String(p.id),
     title: p.title || "Student Accommodation",
     state: p.state || "",
-    area: area,
+    area,
     city: p.city || area,
     university: p.university || "",
     type: p.type || "Apartment",
@@ -310,12 +310,13 @@ filterListings();
 function findListingsContainer() {
   return (
     document.getElementById("listingsContainer") ||
+    document.getElementById("propertyGrid") ||
     document.getElementById("propertiesGrid") ||
     document.getElementById("listingsGrid") ||
     document.querySelector("[data-live-listings]") ||
+    document.querySelector(".property-grid") ||
     document.querySelector(".properties-grid") ||
     document.querySelector(".listings-grid") ||
-    document.querySelector(".property-grid") ||
     document.querySelector(".property-card-wrap")?.parentElement
   );
 }
@@ -387,14 +388,7 @@ async function loadLivePropertiesFromSupabase() {
   if (!data || !data.length) return;
 
   const liveProperties = data.map((item, index) => normalizeProperty(item, index));
-
   properties = liveProperties;
-
-  try {
-    localStorage.setItem("asl_live_properties", JSON.stringify(liveProperties));
-  } catch (error) {
-    console.warn("Could not cache live properties", error);
-  }
 
   renderLiveListings(liveProperties);
 }
@@ -458,14 +452,6 @@ function updateSaveButtons() {
     }
   }
 }
-
-document.querySelectorAll(".save-property-btn").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    toggleSavedProperty(btn.dataset.saveId);
-  });
-});
 
 const savePropertyDetailBtn = document.getElementById("savePropertyDetailBtn");
 
@@ -709,13 +695,13 @@ if (submitForm) {
       .from("property_submissions")
       .insert([
         {
-          title: title,
-          state: state,
-          city: city,
-          university: university,
+          title,
+          state,
+          city,
+          university,
           price: priceNumber,
-          type: type,
-          description: description,
+          type,
+          description,
           owner_name: ownerName,
           owner_whatsapp: ownerWhatsapp
         }
@@ -784,6 +770,10 @@ async function renderAdminSubmissions() {
                 <button onclick="approveProperty('${item.id}')" class="btn btn-primary">
                   Approve
                 </button>
+                <br><br>
+                <button onclick="deletePropertySubmission('${item.id}')" class="btn btn-accent">
+                  Delete
+                </button>
               </td>
             </tr>
           `;
@@ -840,7 +830,62 @@ async function approveProperty(id) {
     .eq("id", id);
 
   alert("Property approved 🚀");
+  renderAdminSubmissions();
+}
 
+async function deletePropertySubmission(id) {
+  const db = getSupabaseClientSafe();
+
+  if (!db) {
+    alert("Supabase not connected");
+    return;
+  }
+
+  const confirmDelete = confirm(
+    "Delete this submission? If it was approved, the matching published listing will also be removed."
+  );
+
+  if (!confirmDelete) return;
+
+  const { data, error: fetchError } = await db
+    .from("property_submissions")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (fetchError) {
+    console.error(fetchError);
+    alert("Error finding property submission");
+    return;
+  }
+
+  const { error: deleteSubmissionError } = await db
+    .from("property_submissions")
+    .delete()
+    .eq("id", id);
+
+  if (deleteSubmissionError) {
+    console.error(deleteSubmissionError);
+    alert("Error deleting submission");
+    return;
+  }
+
+  const { error: deletePublishedError } = await db
+    .from("properties")
+    .delete()
+    .eq("title", data.title)
+    .eq("state", data.state)
+    .eq("city", data.city)
+    .eq("price", data.price);
+
+  if (deletePublishedError) {
+    console.warn("Submission deleted, but matching published property was not removed:", deletePublishedError);
+    alert("Submission deleted. Matching published property may need manual deletion from Supabase.");
+    renderAdminSubmissions();
+    return;
+  }
+
+  alert("Property deleted 🗑️");
   renderAdminSubmissions();
 }
 
