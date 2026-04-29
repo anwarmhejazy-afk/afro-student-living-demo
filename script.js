@@ -648,7 +648,13 @@ async function renderAdminSubmissions() {
               <td>₦${Number(item.price || 0).toLocaleString()}</td>
               <td>${cleanText(item.owner_name)}</td>
               <td>${cleanText(item.owner_whatsapp)}</td>
-              <td><span class="table-badge pending">${cleanText(item.status || "pending")}</span></td>
+              <td>
+  <span class="table-badge pending">${cleanText(item.status || "pending")}</span>
+  <br><br>
+  <button onclick="approveProperty('${item.id}')" class="btn btn-primary">
+    Approve
+  </button>
+</td>
             </tr>
           `;
         })
@@ -657,6 +663,54 @@ async function renderAdminSubmissions() {
 }
 
 renderAdminSubmissions();
+
+async function approveProperty(id) {
+  const db = window.supabaseClient;
+
+  if (!db) {
+    alert("Supabase not connected");
+    return;
+  }
+
+  const { data, error } = await db
+    .from("property_submissions")
+    .select("*")
+    .eq("id", id)
+    .single();
+
+  if (error) {
+    console.error(error);
+    alert("Error fetching property");
+    return;
+  }
+
+  const { error: insertError } = await db
+    .from("properties")
+    .insert([{
+      title: data.title,
+      state: data.state,
+      city: data.city,
+      university: data.university,
+      type: data.type,
+      price: data.price,
+      description: data.description
+    }]);
+
+  if (insertError) {
+    console.error(insertError);
+    alert("Error publishing property");
+    return;
+  }
+
+  await db
+    .from("property_submissions")
+    .update({ status: "approved" })
+    .eq("id", id);
+
+  alert("Property approved 🚀");
+
+  renderAdminSubmissions();
+}
 
 if (clearSubmissionsBtn) {
   clearSubmissionsBtn.addEventListener("click", () => {
