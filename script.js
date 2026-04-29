@@ -607,3 +607,42 @@ if (scrollBtn) {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 }
+/* SUBMIT PROPERTY → SAVE TO SUPABASE */
+
+const submitForm = document.getElementById("submitPropertyForm");
+
+if (submitForm) {
+  submitForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const name = document.getElementById("propertyName").value;
+    const state = document.getElementById("propertyState").value;
+    const type = document.getElementById("propertyType").value;
+    const price = document.getElementById("propertyPrice").value;
+    const area = document.getElementById("propertyArea").value;
+    const description = document.getElementById("propertyDescriptionInput").value;
+
+    const { error } = await supabase
+      .from("property_submissions")
+      .insert([
+        {
+          name,
+          state,
+          type,
+          price,
+          area,
+          description,
+          status: "pending"
+        }
+      ]);
+
+    if (error) {
+      alert("Error submitting property");
+      console.error(error);
+      return;
+    }
+
+    alert("Property submitted successfully. Waiting for admin approval.");
+    submitForm.reset();
+  });
+}
