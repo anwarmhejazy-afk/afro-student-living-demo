@@ -988,3 +988,33 @@ loadLivePropertiesFromSupabase().then(() => {
   loadPropertyPage();
   loadBookingPage();
 });
+
+// AUTO DESCRIPTION GENERATOR
+const autoBtn = document.getElementById("autoDescriptionBtn");
+
+if (autoBtn) {
+  autoBtn.addEventListener("click", () => {
+    const name = document.getElementById("propertyName")?.value || "";
+    const state = document.getElementById("propertyState")?.value || "";
+    const type = document.getElementById("propertyType")?.value || "";
+    const area = document.getElementById("propertyArea")?.value || "";
+
+    if (!name || !state || !type || !area) {
+      alert("Please fill property name, state, type, and area first.");
+      return;
+    }
+
+    const description = `${name} is a well-located ${type.toLowerCase()} situated in ${area}, ${state}. 
+
+This property is ideal for students looking for safe and comfortable accommodation close to their university.
+
+Key features include:
+• Good access to transport
+• Secure environment
+• Suitable for student living
+
+This property offers convenience, comfort, and a student-friendly environment.`;
+
+    document.getElementById("propertyDescriptionInput").value = description;
+  });
+}
