@@ -1,5 +1,10 @@
 const businessWhatsappNumber = "447709721192";
 
+const ADMIN_EMAILS = [
+  "anwar_hejazy@hotmail.com",
+  "ygr08100@gmail.com"
+];
+
 /* =========================
    MOBILE MENU
 ========================= */
@@ -13,113 +18,12 @@ if (menuBtn && navLinks) {
 }
 
 /* =========================
-   STATIC PROPERTY DATA
-   Used as fallback + for old property pages
+   GLOBAL PROPERTY DATA
+   100% dynamic from Supabase
 ========================= */
-let properties = [
-  {
-    id: "1",
-    title: "Premium Shared Apartment",
-    state: "Lagos",
-    area: "Yaba",
-    university: "Near UNILAG",
-    type: "Apartment",
-    price: 280000,
-    priceText: "₦280,000 / year",
-    badge: "Verified Property",
-    badgeClass: "verified",
-    imageClass: "img-one",
-    location: "Lagos State • Yaba • Near UNILAG",
-    description: "A clean and modern shared apartment in Yaba, suitable for students who want easy access to UNILAG and nearby study areas.",
-    features: ["✔ WiFi available", "✔ 24/7 security access", "✔ Furnished shared living space", "✔ Close to UNILAG", "✔ Kitchen access", "✔ Water and electricity access"],
-    gallery: ["https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&w=1600&q=80", "images/room1.jpg", "images/room2.jpg"]
-  },
-  {
-    id: "2",
-    title: "Private Student Studio",
-    state: "FCT Abuja",
-    area: "Gwarinpa",
-    university: "Near University of Abuja",
-    type: "Studio",
-    price: 450000,
-    priceText: "₦450,000 / year",
-    badge: "Featured Property",
-    badgeClass: "featured",
-    imageClass: "img-two",
-    location: "Abuja • Gwarinpa • Near University of Abuja",
-    description: "A private student studio in Abuja with a quiet environment, secure access, and essential amenities.",
-    features: ["✔ Private room", "✔ Bills included", "✔ Secure building", "✔ Near University of Abuja", "✔ Clean bathroom access", "✔ Suitable for focused study"],
-    gallery: ["images/room1.jpg", "images/room2.jpg", "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80"]
-  },
-  {
-    id: "3",
-    title: "Affordable Student Hostel",
-    state: "Enugu",
-    area: "UNEC Area",
-    university: "Near UNEC",
-    type: "Hostel",
-    price: 180000,
-    priceText: "₦180,000 / year",
-    badge: "Verified Property",
-    badgeClass: "verified",
-    imageClass: "img-three",
-    location: "Enugu State • Near UNEC",
-    description: "An affordable student hostel near UNEC with simple facilities, secure access, and student-friendly pricing.",
-    features: ["✔ Affordable yearly rent", "✔ Secure hostel access", "✔ Student-friendly environment", "✔ Close to UNEC", "✔ Water access", "✔ Shared facilities"],
-    gallery: ["images/room2.jpg", "images/room1.jpg", "https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&w=1600&q=80"]
-  },
-  {
-    id: "4",
-    title: "Modern Campus Room",
-    state: "Rivers",
-    area: "Port Harcourt",
-    university: "Close to University",
-    type: "Shared Room",
-    price: 220000,
-    priceText: "₦220,000 / year",
-    badge: "Available Now",
-    badgeClass: "available",
-    imageClass: "img-four",
-    location: "Rivers State • Port Harcourt • Close to University",
-    description: "A modern campus room in Port Harcourt with access to water, power, and a student-friendly environment.",
-    features: ["✔ Shared room option", "✔ Water access", "✔ Power access", "✔ Close to university", "✔ Student environment", "✔ Affordable rent"],
-    gallery: ["https://images.unsplash.com/photo-1560185893-a55cbc8c57e8?auto=format&fit=crop&w=1600&q=80", "images/room1.jpg", "images/room2.jpg"]
-  },
-  {
-    id: "5",
-    title: "Clean Shared Student Flat",
-    state: "Kano",
-    area: "Kano City",
-    university: "Near Bayero University",
-    type: "Shared Room",
-    price: 200000,
-    priceText: "₦200,000 / year",
-    badge: "Verified Property",
-    badgeClass: "verified",
-    imageClass: "img-five",
-    location: "Kano State • Near Bayero University",
-    description: "A clean shared student flat in Kano with a calm surrounding and secure gate access.",
-    features: ["✔ Shared flat", "✔ Kitchen access", "✔ Secure gate", "✔ Quiet environment", "✔ Student-friendly space", "✔ Affordable yearly rent"],
-    gallery: ["https://images.unsplash.com/photo-1560185127-6ed189bf02f4?auto=format&fit=crop&w=1600&q=80", "images/room2.jpg", "images/room1.jpg"]
-  },
-  {
-    id: "6",
-    title: "Furnished Student Apartment",
-    state: "Lagos",
-    area: "Lekki",
-    university: "Premium Location",
-    type: "Apartment",
-    price: 650000,
-    priceText: "₦650,000 / year",
-    badge: "Featured Property",
-    badgeClass: "featured",
-    imageClass: "img-six",
-    location: "Lagos State • Lekki • Premium Location",
-    description: "A furnished student apartment in a premium Lagos location with strong security, comfortable interiors, and access to key facilities.",
-    features: ["✔ Fully furnished apartment", "✔ Air conditioning", "✔ 24/7 security", "✔ Premium Lagos location", "✔ Kitchen access", "✔ Comfortable study space"],
-    gallery: ["https://images.unsplash.com/photo-1560448204-603b3fc33ddc?auto=format&fit=crop&w=1600&q=80", "images/room1.jpg", "images/room2.jpg"]
-  }
-];
+let properties = [];
+let livePropertiesLoaded = false;
+let selectedPropertyFiles = [];
 
 function getSupabaseClientSafe() {
   if (window.supabaseClient) return window.supabaseClient;
@@ -140,9 +44,11 @@ function normalizeProperty(p, index = 0) {
   const imageClasses = ["img-one", "img-two", "img-three", "img-four", "img-five", "img-six"];
   const area = p.area || p.city || "";
   const priceNumber = Number(p.price || 0);
+  const imageUrls = Array.isArray(p.image_urls) ? p.image_urls : [];
 
   return {
     id: String(p.id),
+    submission_id: p.submission_id || "",
     title: p.title || "Student Accommodation",
     state: p.state || "",
     area,
@@ -154,17 +60,35 @@ function normalizeProperty(p, index = 0) {
     badge: p.badge || "Verified Property",
     badgeClass: p.badgeClass || "verified",
     imageClass: p.imageClass || imageClasses[index % imageClasses.length],
+    image_urls: imageUrls,
+    mainImage: imageUrls[0] || "",
     location: p.location || `${p.state || ""}${area ? " • " + area : ""}${p.university ? " • " + p.university : ""}`,
     description: p.description || "Student accommodation submitted and approved by Afro Student Living admin.",
     features: p.features || ["✔ Admin approved", "✔ Student-friendly location", "✔ Contact available", "✔ Suitable for students"],
-    gallery: p.gallery || ["images/room1.jpg", "images/room2.jpg"]
+    gallery: imageUrls.length ? imageUrls : ["images/room1.jpg", "images/room2.jpg"]
   };
 }
 
 function getPropertyById() {
   const params = new URLSearchParams(window.location.search);
-  const id = params.get("id") || "1";
-  return properties.find((p) => String(p.id) === String(id)) || properties[0];
+  const id = params.get("id") || "";
+  return properties.find((p) => String(p.id) === String(id)) || properties[0] || null;
+}
+
+function generatePropertyDescription({ title, state, type, priceRaw, city, university }) {
+  const propertyName = title || "This student accommodation";
+  const propertyType = type || "student accommodation";
+  const location = city || state || "a convenient student area";
+  const nearby = university || city || "nearby institutions";
+  const priceText = priceRaw ? `The listed price is ${priceRaw}.` : "Pricing is clearly listed for student planning.";
+
+  return `${propertyName} is a ${propertyType.toLowerCase()} located in ${location}, designed for students who want a comfortable, safe, and convenient place to stay.
+
+The property is suitable for students looking for easy access to ${nearby}, transport links, shops, and essential daily services. It offers a practical living environment for study, rest, and everyday student life.
+
+Key benefits include a student-friendly location, clear pricing, access to nearby amenities, and a secure accommodation setup. ${priceText}
+
+This property is ideal for students who want reliable accommodation with a smooth request and admin-reviewed approval process through Afro Student Living.`;
 }
 
 /* =========================
@@ -235,7 +159,10 @@ function applyQueryFilters() {
 
 function filterListings() {
   const propertyCards = getPropertyCards();
-  if (!propertyCards.length) return;
+  if (!propertyCards.length) {
+    if (propertyCount) propertyCount.textContent = 0;
+    return;
+  }
 
   const searchValue = searchInput ? searchInput.value.toLowerCase().trim() : "";
   const selectedState = stateFilter ? stateFilter.value : "";
@@ -302,7 +229,6 @@ if (budgetFilter) budgetFilter.addEventListener("change", filterListings);
 if (resetFilters) resetFilters.addEventListener("click", resetListingFilters);
 
 applyQueryFilters();
-filterListings();
 
 /* =========================
    LIVE LISTINGS FROM SUPABASE
@@ -323,11 +249,18 @@ function findListingsContainer() {
 
 function renderLiveListings(liveProperties) {
   const container = findListingsContainer();
-  if (!container || !liveProperties.length) return;
+  if (!container) return;
+
+  if (!liveProperties.length) {
+    container.innerHTML = `<p class="small-note">No approved properties available yet.</p>`;
+    if (propertyCount) propertyCount.textContent = 0;
+    return;
+  }
 
   container.innerHTML = liveProperties
     .map((property) => {
       const keywords = `${property.title} ${property.state} ${property.area} ${property.city} ${property.university} ${property.type}`.toLowerCase();
+      const imageStyle = property.mainImage ? `style="background-image: url('${cleanText(property.mainImage)}');"` : "";
 
       return `
         <div class="property-card-wrap">
@@ -340,7 +273,7 @@ function renderLiveListings(liveProperties) {
              data-price="${Number(property.price || 0)}"
              data-keywords="${cleanText(keywords)}">
 
-            <div class="property-img ${cleanText(property.imageClass)}"></div>
+            <div class="property-img ${cleanText(property.imageClass)}" ${imageStyle}></div>
 
             <div class="property-content">
               <span class="badge ${cleanText(property.badgeClass)}">${cleanText(property.badge)}</span>
@@ -365,15 +298,9 @@ function renderLiveListings(liveProperties) {
   filterListings();
 }
 
-async function loadLivePropertiesFromSupabase() {
-  const isListingsPage =
-    window.location.pathname.includes("listings") ||
-    !!findListingsContainer();
-
-  if (!isListingsPage) return;
-
+async function fetchLivePropertiesFromSupabase() {
   const db = getSupabaseClientSafe();
-  if (!db) return;
+  if (!db) return [];
 
   const { data, error } = await db
     .from("properties")
@@ -381,16 +308,24 @@ async function loadLivePropertiesFromSupabase() {
     .order("created_at", { ascending: false });
 
   if (error) {
-    console.error("Live listings error:", error);
-    return;
+    console.error("Live properties error:", error);
+    return [];
   }
 
-  if (!data || !data.length) return;
+  return (data || []).map((item, index) => normalizeProperty(item, index));
+}
 
-  const liveProperties = data.map((item, index) => normalizeProperty(item, index));
-  properties = liveProperties;
+async function loadLivePropertiesFromSupabase() {
+  if (livePropertiesLoaded) return properties;
 
-  renderLiveListings(liveProperties);
+  properties = await fetchLivePropertiesFromSupabase();
+  livePropertiesLoaded = true;
+
+  if (window.location.pathname.includes("listings") || findListingsContainer()) {
+    renderLiveListings(properties);
+  }
+
+  return properties;
 }
 
 /* =========================
@@ -442,6 +377,7 @@ function updateSaveButtons() {
 
   if (detailBtn) {
     const property = getPropertyById();
+    if (!property) return;
 
     if (saved.includes(property.id)) {
       detailBtn.classList.add("saved");
@@ -457,7 +393,8 @@ const savePropertyDetailBtn = document.getElementById("savePropertyDetailBtn");
 
 if (savePropertyDetailBtn) {
   savePropertyDetailBtn.addEventListener("click", () => {
-    toggleSavedProperty(getPropertyById().id);
+    const property = getPropertyById();
+    if (property) toggleSavedProperty(property.id);
   });
 }
 
@@ -474,10 +411,14 @@ function loadPropertyPage() {
   if (!propertyTitle) return;
 
   const property = getPropertyById();
+
+  if (!property) {
+    propertyTitle.textContent = "Property not found";
+    return;
+  }
+
   activePropertyGallery = property.gallery || [];
-
   document.title = `${property.title} | Afro Student Living`;
-
   propertyTitle.textContent = property.title;
 
   const propertyLocation = document.getElementById("propertyLocation");
@@ -497,7 +438,11 @@ function loadPropertyPage() {
   if (sidePrice) sidePrice.textContent = property.priceText;
   if (propertyDescription) propertyDescription.textContent = property.description;
   if (propertyTypeText) propertyTypeText.textContent = property.type;
-  if (propertyImage) propertyImage.className = `gallery-main ${property.imageClass}`;
+
+  if (propertyImage) {
+    propertyImage.className = `gallery-main ${property.imageClass}`;
+    if (property.mainImage) propertyImage.style.backgroundImage = `url('${property.mainImage}')`;
+  }
 
   if (propertyBadge) {
     propertyBadge.className = `badge ${property.badgeClass} animated-hero-text`;
@@ -520,7 +465,8 @@ function loadPropertyPage() {
     whatsappLink.href = `https://wa.me/${businessWhatsappNumber}?text=${msg}`;
   }
 
-  if (requestViewingBtn) {
+  if (requestViewingBtn && !requestViewingBtn.dataset.boundViewing) {
+    requestViewingBtn.dataset.boundViewing = "true";
     requestViewingBtn.addEventListener("click", () => {
       const text = encodeURIComponent(
         `Hello Afro Student Living,\n\nI would like to request a viewing for this property:\n\nProperty: ${property.title}\nLocation: ${property.location}\nPrice: ${property.priceText}\n\nPlease confirm available viewing dates and times.`
@@ -598,6 +544,7 @@ function loadBookingPage() {
   if (!bookingPropertyTitle) return;
 
   const property = getPropertyById();
+  if (!property) return;
 
   bookingPropertyTitle.textContent = property.title;
 
@@ -608,7 +555,11 @@ function loadBookingPage() {
 
   if (bookingPropertyLocation) bookingPropertyLocation.textContent = property.location;
   if (bookingPropertyPrice) bookingPropertyPrice.textContent = property.priceText;
-  if (bookingPropertyImage) bookingPropertyImage.className = `property-img ${property.imageClass} summary-img`;
+
+  if (bookingPropertyImage) {
+    bookingPropertyImage.className = `property-img ${property.imageClass} summary-img`;
+    if (property.mainImage) bookingPropertyImage.style.backgroundImage = `url('${property.mainImage}')`;
+  }
 
   if (bookingMessage) {
     bookingMessage.value = `Hello, I would like to request booking for ${property.title} in ${property.location}.`;
@@ -620,6 +571,7 @@ const bookingWhatsappBtn = document.getElementById("bookingWhatsappBtn");
 if (bookingWhatsappBtn) {
   bookingWhatsappBtn.addEventListener("click", () => {
     const property = getPropertyById();
+    if (!property) return;
 
     const name = document.getElementById("studentName")?.value || "";
     const phone = document.getElementById("studentPhone")?.value || "";
@@ -637,7 +589,7 @@ if (bookingWhatsappBtn) {
 }
 
 /* =========================
-   IMAGE PREVIEW
+   IMAGE PREVIEW + UPLOAD
 ========================= */
 const propertyImagesInput = document.getElementById("propertyImages");
 const imagePreview = document.getElementById("imagePreview");
@@ -645,21 +597,74 @@ const imagePreview = document.getElementById("imagePreview");
 if (propertyImagesInput && imagePreview) {
   propertyImagesInput.addEventListener("change", () => {
     imagePreview.innerHTML = "";
+    selectedPropertyFiles = Array.from(propertyImagesInput.files || []).slice(0, 8);
 
-    Array.from(propertyImagesInput.files)
-      .slice(0, 6)
-      .forEach((file) => {
-        const reader = new FileReader();
+    selectedPropertyFiles.forEach((file) => {
+      if (!file.type.startsWith("image/")) return;
 
-        reader.onload = (e) => {
-          const img = document.createElement("img");
-          img.src = e.target.result;
-          img.alt = "Uploaded property preview";
-          imagePreview.appendChild(img);
-        };
+      const reader = new FileReader();
 
-        reader.readAsDataURL(file);
+      reader.onload = (e) => {
+        const img = document.createElement("img");
+        img.src = e.target.result;
+        img.alt = "Uploaded property preview";
+        imagePreview.appendChild(img);
+      };
+
+      reader.readAsDataURL(file);
+    });
+  });
+}
+
+async function uploadPropertyImages(files) {
+  const db = getSupabaseClientSafe();
+  if (!db || !files || !files.length) return [];
+
+  const uploadedUrls = [];
+
+  for (const file of files) {
+    if (!file.type.startsWith("image/")) continue;
+
+    const safeName = file.name.toLowerCase().replace(/[^a-z0-9.]+/g, "-");
+    const filePath = `submissions/${Date.now()}-${Math.random().toString(16).slice(2)}-${safeName}`;
+
+    const { error } = await db.storage
+      .from("property-images")
+      .upload(filePath, file, {
+        cacheControl: "3600",
+        upsert: false
       });
+
+    if (error) {
+      console.error("Image upload error:", error);
+      continue;
+    }
+
+    const { data } = db.storage.from("property-images").getPublicUrl(filePath);
+    if (data?.publicUrl) uploadedUrls.push(data.publicUrl);
+  }
+
+  return uploadedUrls;
+}
+
+/* =========================
+   AUTO DESCRIPTION
+========================= */
+const autoDescriptionBtn = document.getElementById("autoDescriptionBtn");
+
+if (autoDescriptionBtn) {
+  autoDescriptionBtn.addEventListener("click", () => {
+    const title = document.getElementById("propertyName")?.value.trim() || "";
+    const state = document.getElementById("propertyState")?.value.trim() || "";
+    const type = document.getElementById("propertyType")?.value.trim() || "";
+    const priceRaw = document.getElementById("propertyPrice")?.value.trim() || "";
+    const city = document.getElementById("propertyArea")?.value.trim() || "";
+    const university = document.getElementById("propertyArea")?.value.trim() || "";
+    const descriptionInput = document.getElementById("propertyDescriptionInput");
+
+    if (descriptionInput) {
+      descriptionInput.value = generatePropertyDescription({ title, state, type, priceRaw, city, university });
+    }
   });
 }
 
@@ -679,17 +684,28 @@ if (submitForm) {
       return;
     }
 
+    const submitButton = submitForm.querySelector("button[type='submit']");
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Submitting...";
+    }
+
     const title = document.getElementById("propertyName")?.value.trim() || "";
     const state = document.getElementById("propertyState")?.value.trim() || "";
     const type = document.getElementById("propertyType")?.value.trim() || "";
     const priceRaw = document.getElementById("propertyPrice")?.value.trim() || "";
     const city = document.getElementById("propertyArea")?.value.trim() || "";
     const university = document.getElementById("propertyArea")?.value.trim() || "";
-    const description = document.getElementById("propertyDescriptionInput")?.value.trim() || "";
+    let description = document.getElementById("propertyDescriptionInput")?.value.trim() || "";
     const ownerName = document.getElementById("ownerName")?.value.trim() || "";
     const ownerWhatsapp = document.getElementById("ownerWhatsapp")?.value.trim() || "";
 
+    if (!description) {
+      description = generatePropertyDescription({ title, state, type, priceRaw, city, university });
+    }
+
     const priceNumber = Number(priceRaw.replace(/[^\d]/g, "")) || 0;
+    const imageUrls = await uploadPropertyImages(selectedPropertyFiles);
 
     const { error } = await db
       .from("property_submissions")
@@ -703,9 +719,16 @@ if (submitForm) {
           type,
           description,
           owner_name: ownerName,
-          owner_whatsapp: ownerWhatsapp
+          owner_whatsapp: ownerWhatsapp,
+          image_urls: imageUrls,
+          status: "pending"
         }
       ]);
+
+    if (submitButton) {
+      submitButton.disabled = false;
+      submitButton.textContent = "Submit for Admin Review";
+    }
 
     if (error) {
       console.error("Supabase submit error:", error);
@@ -715,6 +738,7 @@ if (submitForm) {
 
     alert("Property submitted successfully. Waiting for admin approval.");
     submitForm.reset();
+    selectedPropertyFiles = [];
 
     if (imagePreview) imagePreview.innerHTML = "";
   });
@@ -744,7 +768,7 @@ async function renderAdminSubmissions() {
 
   if (error) {
     console.error("Admin submissions error:", error);
-    adminSubmissionsTable.innerHTML = `<tr><td colspan="8">Could not load submissions. Check Supabase table name and columns.</td></tr>`;
+    adminSubmissionsTable.innerHTML = `<tr><td colspan="8">Could not load submissions. Check Supabase table name, columns, and admin login.</td></tr>`;
     return;
   }
 
@@ -755,9 +779,14 @@ async function renderAdminSubmissions() {
   adminSubmissionsTable.innerHTML = submissions.length
     ? submissions
         .map((item) => {
+          const images = Array.isArray(item.image_urls) ? item.image_urls : [];
+          const firstImage = images[0];
+
           return `
             <tr>
-              <td><span class="no-image">Pending</span></td>
+              <td>
+                ${firstImage ? `<img src="${cleanText(firstImage)}" alt="Property" style="width:70px;height:55px;object-fit:cover;border-radius:12px;">` : `<span class="no-image">Pending</span>`}
+              </td>
               <td><strong>${cleanText(item.title)}</strong><br><small>${cleanText(item.city)}</small></td>
               <td>${cleanText(item.state)}</td>
               <td>${cleanText(item.type)}</td>
@@ -804,6 +833,8 @@ async function approveProperty(id) {
     return;
   }
 
+  await db.from("properties").delete().eq("submission_id", id);
+
   const { error: insertError } = await db
     .from("properties")
     .insert([
@@ -815,6 +846,7 @@ async function approveProperty(id) {
         type: data.type,
         price: data.price,
         description: data.description,
+        image_urls: data.image_urls || [],
         submission_id: data.id
       }
     ]);
@@ -843,7 +875,7 @@ async function deletePropertySubmission(id) {
   }
 
   const confirmDelete = confirm(
-    "Delete this submission? If it was approved, the matching published listing will also be removed."
+    "Delete this property from admin and live listings?"
   );
 
   if (!confirmDelete) return;
@@ -860,6 +892,24 @@ async function deletePropertySubmission(id) {
     return;
   }
 
+  const { error: deletePublishedError } = await db
+    .from("properties")
+    .delete()
+    .eq("submission_id", id);
+
+  if (deletePublishedError) {
+    console.warn("Could not delete linked published property:", deletePublishedError);
+  }
+
+  // Fallback cleanup for older records created before submission_id existed
+  await db
+    .from("properties")
+    .delete()
+    .eq("title", data.title)
+    .eq("state", data.state)
+    .eq("city", data.city)
+    .eq("price", data.price);
+
   const { error: deleteSubmissionError } = await db
     .from("property_submissions")
     .delete()
@@ -871,26 +921,23 @@ async function deletePropertySubmission(id) {
     return;
   }
 
-  const { error: deletePublishedError } = await db
-    .from("properties")
-    .delete()
-    .eq("submission_id", id);
-
-  if (deletePublishedError) {
-    console.warn("Submission deleted, but matching published property was not removed:", deletePublishedError);
-    alert("Submission deleted. Matching published property may need manual deletion from Supabase.");
-    renderAdminSubmissions();
-    return;
-  }
-
   alert("Property deleted 🗑️");
   renderAdminSubmissions();
 }
 
 if (clearSubmissionsBtn) {
   clearSubmissionsBtn.addEventListener("click", () => {
-    alert("Submissions are stored in Supabase. Delete rows from Supabase Table Editor if needed.");
+    alert("Submissions are stored in Supabase. Use the Delete button or Supabase Table Editor if needed.");
   });
+}
+
+async function logoutAdmin() {
+  const db = getSupabaseClientSafe();
+
+  if (!db) return;
+
+  await db.auth.signOut();
+  window.location.href = "login.html";
 }
 
 /* =========================
@@ -935,18 +982,9 @@ if (scrollBtn) {
 }
 
 /* =========================
-   START LIVE DATA
+   START APP
 ========================= */
 loadLivePropertiesFromSupabase().then(() => {
   loadPropertyPage();
   loadBookingPage();
 });
-
-async function logoutAdmin() {
-  const db = getSupabaseClientSafe();
-
-  if (!db) return;
-
-  await db.auth.signOut();
-  window.location.href = "login.html";
-}
