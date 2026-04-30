@@ -10,22 +10,25 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 </head>
 
-<body>
+<body style="visibility:hidden;">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
 
   <script>
-    document.body.style.display = "none";
+    document.addEventListener("DOMContentLoaded", async () => {
+      const allowedAdmins = [
+        "anwar_hejazy@hotmail.com",
+        "ygr08100@gmail.com"
+      ];
 
-    const allowedAdmins = [
-      "anwar_hejazy@hotmail.com",
-      "ygr08100@gmail.com"
-    ];
+      if (!window.supabaseClient) {
+        window.location.href = "login.html";
+        return;
+      }
 
-    async function protectAdminPage() {
-      const { data } = await window.supabaseClient.auth.getSession();
+      const { data, error } = await window.supabaseClient.auth.getSession();
 
-      if (!data.session) {
+      if (error || !data.session) {
         window.location.href = "login.html";
         return;
       }
@@ -38,10 +41,8 @@
         return;
       }
 
-      document.body.style.display = "";
-    }
-
-    protectAdminPage();
+      document.body.style.visibility = "visible";
+    });
   </script>
 
   <main class="section">
