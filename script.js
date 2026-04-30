@@ -941,3 +941,12 @@ loadLivePropertiesFromSupabase().then(() => {
   loadPropertyPage();
   loadBookingPage();
 });
+
+async function logoutAdmin() {
+  const db = getSupabaseClientSafe();
+
+  if (!db) return;
+
+  await db.auth.signOut();
+  window.location.href = "login.html";
+}

@@ -11,10 +11,46 @@
 </head>
 
 <body>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
+  <script>
+    document.body.style.display = "none";
+
+    const allowedAdmins = [
+      "anwar_hejazy@hotmail.com",
+      "ygr08100@gmail.com"
+    ];
+
+    async function protectAdminPage() {
+      const { data } = await window.supabaseClient.auth.getSession();
+
+      if (!data.session) {
+        window.location.href = "login.html";
+        return;
+      }
+
+      const email = data.session.user.email.toLowerCase();
+
+      if (!allowedAdmins.includes(email)) {
+        await window.supabaseClient.auth.signOut();
+        window.location.href = "login.html";
+        return;
+      }
+
+      document.body.style.display = "";
+    }
+
+    protectAdminPage();
+  </script>
+
   <main class="section">
     <div class="container">
       <span class="eyebrow">Admin dashboard</span>
       <h1>Property Submissions</h1>
+
+      <button class="btn btn-accent" onclick="logoutAdmin()" type="button">Logout</button>
+
       <p>Total Submissions: <strong id="submissionCount">0</strong></p>
 
       <div style="overflow-x:auto;">
@@ -38,8 +74,6 @@
     </div>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script src="supabase.js"></script>
   <script src="script.js"></script>
 </body>
 </html>
